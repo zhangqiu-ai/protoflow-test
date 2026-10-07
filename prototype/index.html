@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Fresh ProtoFlow — Workspace access</title><link rel="stylesheet" href="styles.css"></head><body>
+<header><span class="brand">◈ Fresh ProtoFlow</span><span>LOCAL DEMONSTRATION</span></header>
+<main id="screen"><aside><span class="eyebrow">A CLEAN START</span><h1>Make room for<br>your next idea.</h1><p>Explore a small workspace, one verified version at a time.</p><div class="steps"><div><b>01</b><span>Describe an experience</span></div><div><b>02</b><span>Build a working version</span></div><div><b>03</b><span>Check the result</span></div></div><small>A new baseline. A new version history.</small></aside><section>
+<div id="sign-in"><span class="eyebrow">DEMO WORKSPACE</span><h2>Let's get started</h2><p class="subtext">Use the fictional details below to try the flow.</p>
+<form id="login-form" novalidate autocomplete="off"><label for="email">Email address</label><input id="email" type="email" placeholder="name@example.test"><p class="error" id="email-error" hidden></p><label for="password">Password</label><input id="password" type="password" placeholder="At least 8 characters"><p class="error" id="password-error" hidden></p><p id="login-error" role="alert" hidden>Those demo details don't match.</p><button id="submit" type="submit">Enter workspace →</button></form>
+<div class="fixture"><strong>Fictional test details</strong><p>demo@fresh.protoflow.test</p><p>FreshDemo42!</p><small>In-memory demonstration only.</small></div></div>
+<div id="signed-in" hidden><span class="success">✓</span><span class="eyebrow">YOU'RE READY</span><h2>Demo workspace</h2><p class="subtext">Your next idea can start here.</p><div class="account"><strong id="user-email"></strong><small>Fictional demo profile</small></div><button id="logout" type="button">Leave workspace</button></div>
+<p id="status" role="status">Ready for a fresh start</p></section></main>
+<footer>Fresh acceptance baseline</footer>
+<script>
+(() => {
+ const form=document.getElementById('login-form'),email=document.getElementById('email'),password=document.getElementById('password');
+ const emailError=document.getElementById('email-error'),passwordError=document.getElementById('password-error'),loginError=document.getElementById('login-error');
+ const signed=document.getElementById('signed-in'),signIn=document.getElementById('sign-in'),status=document.getElementById('status');
+ const showError=(element,text)=>{element.textContent=text;element.hidden=!text;};
+ form.addEventListener('submit',event=>{
+  event.preventDefault();if(!signed.hidden)return;
+  const address=email.value.trim().toLowerCase(),secret=password.value;
+  showError(emailError,!address?'Email is required.':!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(address)?'Use a valid email address.':'');
+  showError(passwordError,!secret?'Password is required.':secret.length<8?'Use 8 or more characters.':'');loginError.hidden=true;
+  if(!emailError.hidden||!passwordError.hidden){status.textContent='Check the highlighted fields';(!emailError.hidden?email:password).focus();return;}
+  if(address!=='demo@fresh.protoflow.test'||secret!=='FreshDemo42!'){loginError.hidden=false;status.textContent='Try the fictional test details';return;}
+  document.getElementById('user-email').textContent=address;password.value='';signIn.hidden=true;signed.hidden=false;status.textContent='Workspace opened';
+ });
+ document.getElementById('logout').addEventListener('click',()=>{form.reset();showError(emailError,'');showError(passwordError,'');loginError.hidden=true;signed.hidden=true;signIn.hidden=false;status.textContent='You can start again';email.focus();});
+})();
+</script></body></html>
