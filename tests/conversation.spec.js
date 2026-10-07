@@ -34,6 +34,19 @@ test('initial conversation exposes its welcome, local demo description and compo
   await expect(page.getByRole('alert')).toBeHidden();
 });
 
+test('canned replies badge uses amber colors and retains its responsive visibility', async ({page}) => {
+  // Badge palette from frozen git-9884a5b6ba6605d4fec9a2a5152e060a622eaa3d.
+  const badge = page.getByText('Canned replies', {exact: true});
+  await page.setViewportSize({width: 1000, height: 760});
+  await expect(badge).toBeVisible();
+  await expect(badge).toHaveCSS('color', 'rgb(154, 106, 28)');
+  await expect(badge).toHaveCSS('background-color', 'rgb(253, 243, 225)');
+  await page.setViewportSize({width: 920, height: 760});
+  await expect(badge).toBeHidden();
+  await page.setViewportSize({width: 921, height: 760});
+  await expect(badge).toBeVisible();
+});
+
 test('blank messages are rejected and a valid message clears the error', async ({page}) => {
   for (const text of ['', ' \n\t ']) {
     await send(page, text);
