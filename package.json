@@ -3,8 +3,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "node scripts/build.mjs",
-    "test": "playwright test"
+    "build": "node scripts/build-chat.mjs",
+    "test": "playwright test",
+    "build:electron": "npm --prefix app/clean-electron run build",
+    "start:electron": "npm --prefix app/clean-electron start",
+    "test:electron": "npm --prefix app/clean-electron test --",
+    "verify:electron": "npm --prefix app/clean-electron run verify --"
   },
   "devDependencies": {
     "@playwright/test": "1.63.0"

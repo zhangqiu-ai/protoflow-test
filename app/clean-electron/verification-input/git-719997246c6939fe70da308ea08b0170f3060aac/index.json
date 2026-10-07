@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "manifestId": "git-719997246c6939fe70da308ea08b0170f3060aac",
+  "hash": "144b06052bd84579f50ab585ff5638717a137d6c9a4454df6070041d7e7896df",
+  "files": {
+    "prototype/index.html": {
+      "hash": "389392aefc937e22a57af05d1f9fba11967b5e83914bb4bd81ed882ff2b5586e",
+      "size": 3752
+    },
+    "prototype/styles.css": {
+      "hash": "851e3e750c5d45bdd4c46ee0ea03a05e9d6947f295f0917a8dfa264d8d2b832c",
+      "size": 2819
+    }
+  }
+}
