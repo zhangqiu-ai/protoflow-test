@@ -3,38 +3,37 @@
 body{margin:0;background:#f5f7fa;color:#263743;font-family:Arial,sans-serif}
 header{width:860px;margin:38px auto 26px;display:flex;justify-content:space-between;align-items:center}
 .brand{font-size:19px;font-weight:700;color:#3356a2}
-header>span:last-child{font-size:9px;font-weight:700;letter-spacing:1.5px;color:#8a99aa}
-#screen{width:860px;margin:0 auto;display:grid;grid-template-columns:380px 1fr;border:1px solid #e2e8f0;border-radius:18px;overflow:hidden;min-height:565px;box-shadow:0 20px 50px #3045680b}
-aside{padding:44px 34px;background:#2c4480;color:#f4f7ff}
-.eyebrow{display:block;font-size:10px;letter-spacing:1.5px;font-weight:700}
-aside .eyebrow{color:#b5c6f0}
-h1{font-size:37px;line-height:1.22;letter-spacing:-1.2px;margin:24px 0 20px}
-aside>p{color:#c3cfea;font-size:14px;line-height:1.7;margin:0}
-.steps{display:grid;gap:20px;margin:38px 0 40px}
-.steps>div{display:flex;align-items:center;gap:12px;font-size:12px}
-.steps b{width:30px;height:30px;display:grid;place-items:center;background:#ffffff12;border:1px solid #ffffff28;border-radius:7px;font-size:10px}
-aside>small{font-size:10px;color:#b5c6e9}
-section{padding:40px;background:#fff;display:flex;flex-direction:column;justify-content:space-between}
-section .eyebrow{color:#536ea8}
-h2{font-size:25px;letter-spacing:-.6px;margin:12px 0 8px}
-.subtext{font-size:12px;color:#8595a5;line-height:20px;margin:0 0 25px}
-label{display:block;font-size:12px;font-weight:700;margin-bottom:8px}
-input{width:100%;height:42px;border:1px solid #dbe2ed;border-radius:7px;padding:0 12px;font-size:13px;margin-bottom:18px;outline:none}
-input:focus{border-color:#5470b2;box-shadow:0 0 0 3px #5470b215}
-input::placeholder{color:#a1adbc}
-.error{color:#b04949;font-size:11px;line-height:16px;margin:-10px 0 14px}
-#login-error{font-size:11px;background:#fff3f1;color:#b04949;padding:10px;border-radius:7px;margin:0 0 12px}
-button{width:100%;border:0;background:#3e5da8;color:#fff;height:42px;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer}
-.fixture{padding:13px 16px;border:1px solid #e5eaf2;background:#f8faff;border-radius:8px;margin-top:22px}
-.fixture strong{font-size:11px}
-.fixture p{font-size:11px;color:#5f728a;margin:6px 0}
-.fixture small{font-size:10px;color:#8a99aa}
-#status{font-size:11px;color:#8394a6;margin:22px 0 0;line-height:18px}
-.success{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:#ecf3ef;color:#457b60;font-size:22px;margin-bottom:28px}
-.account{padding:20px 0;margin:28px 0;border-top:1px solid #e6ebf2;border-bottom:1px solid #e6ebf2;display:grid;gap:7px}
-.account strong{font-size:12px}
-.account small{font-size:11px;color:#8a99aa}
-#logout{background:#edf2fb;color:#3e5da8}
+.login-page header>span:last-child{font-size:9px;font-weight:700;letter-spacing:1.5px;color:#8a99aa}
+.login-page #screen{width:860px;margin:0 auto;display:grid;grid-template-columns:380px 1fr;border:1px solid #e2e8f0;border-radius:18px;overflow:hidden;min-height:565px;box-shadow:0 20px 50px #3045680b}
+.login-page aside{padding:44px 34px;background:#2c4480;color:#f4f7ff}
+.login-page .eyebrow{display:block;font-size:10px;letter-spacing:1.5px;font-weight:700}
+.login-page aside .eyebrow{color:#b5c6f0}
+.login-page h1{font-size:37px;line-height:1.22;letter-spacing:-1.2px;margin:24px 0 20px}
+.login-page aside>p{color:#c3cfea;font-size:14px;line-height:1.7;margin:0}
+.login-page .steps{display:grid;gap:20px;margin:38px 0 40px}
+.login-page .steps>div{display:flex;align-items:center;gap:12px;font-size:12px}
+.login-page .steps b{width:30px;height:30px;display:grid;place-items:center;background:#ffffff12;border:1px solid #ffffff28;border-radius:7px;font-size:10px}
+.login-page aside>small{font-size:10px;color:#b5c6e9}
+.login-page section{padding:40px;background:#fff;display:flex;flex-direction:column;justify-content:space-between}
+.login-page section .eyebrow{color:#536ea8}
+.login-page h2{font-size:25px;letter-spacing:-.6px;margin:12px 0 8px}
+.login-page .subtext{font-size:12px;color:#8595a5;line-height:20px;margin:0 0 25px}
+.login-page label{display:block;font-size:12px;font-weight:700;margin-bottom:8px}
+.login-page input{width:100%;height:42px;border:1px solid #dbe2ed;border-radius:7px;padding:0 12px;font-size:13px;margin-bottom:18px;outline:none}
+.login-page input:focus{border-color:#5470b2;box-shadow:0 0 0 3px #5470b215}
+.login-page input::placeholder{color:#a1adbc}
+.login-page .error{color:#b04949;font-size:11px;line-height:16px;margin:-10px 0 14px}
+.login-page #login-error{font-size:11px;background:#fff3f1;color:#b04949;padding:10px;border-radius:7px;margin:0 0 12px}
+.login-page button{width:100%;border:0;background:#3e5da8;color:#fff;height:42px;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer}
+.login-page .fixture{padding:13px 16px;border:1px solid #e5eaf2;background:#f8faff;border-radius:8px;margin-top:22px}
+.login-page .fixture strong{font-size:11px}
+.login-page .fixture p{font-size:11px;color:#5f728a;margin:6px 0}
+.login-page .fixture small{font-size:10px;color:#8a99aa}
+.login-page #status{font-size:11px;color:#8394a6;margin:22px 0 0;line-height:18px}
+.login-page .success{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:#ecf3ef;color:#457b60;font-size:22px;margin-bottom:28px}
+.login-page .account{padding:20px 0;margin:28px 0;border-top:1px solid #e6ebf2;border-bottom:1px solid #e6ebf2;display:grid;gap:7px}
+.login-page .account strong{font-size:12px}
+.login-page .account small{font-size:11px;color:#8a99aa}
+.login-page #logout{background:#edf2fb;color:#3e5da8}
 footer{text-align:center;font-size:10px;color:#99a7b6;margin:24px 0}
-footer a{color:#536ea8}
-
+.login-page footer a{color:#536ea8}

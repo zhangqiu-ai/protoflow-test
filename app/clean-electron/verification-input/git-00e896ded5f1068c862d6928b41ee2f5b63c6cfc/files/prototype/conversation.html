@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Fresh ProtoFlow — Conversation</title><link rel="stylesheet" href="conversation.css"></head><body>
+<header><span class="brand">◈ Fresh ProtoFlow</span><a href="index.html">← Workspace entry</a></header>
+<main id="screen"><aside><span class="eyebrow">DEMO SPACE</span><h2>Conversations</h2><button id="clear" type="button">＋ Fresh conversation</button><div class="thread">Today's ideas<small>One local demonstration</small></div><p>Write something. See a fixed reply. Keep exploring.</p></aside><section><div class="heading"><span class="eyebrow">START WITH AN IDEA</span><h1>A fresh conversation</h1><small>Fictional messages · Fixed replies</small></div><div id="messages" role="log" aria-label="Conversation"><article class="assistant"><b>Demo guide</b><p>Welcome! What would you like to explore?</p></article></div><form id="message-form" novalidate><label for="message">Your message</label><div class="composer"><textarea id="message" rows="2" maxlength="280" placeholder="Write your first idea…"></textarea><button id="send" type="submit">Send →</button></div><p id="message-error" role="alert" hidden>Write a message to continue.</p><p id="status" role="status">Waiting for your first idea</p></form></section></main>
+<footer>Fresh acceptance baseline</footer>
+<script>
+(() => {
+ const form=document.getElementById('message-form'),input=document.getElementById('message'),messages=document.getElementById('messages'),error=document.getElementById('message-error'),status=document.getElementById('status');
+ function append(kind,text){const row=document.createElement('article');row.className=kind;const name=document.createElement('b');name.textContent=kind==='user'?'You':'Demo guide';const paragraph=document.createElement('p');paragraph.textContent=text;row.append(name,paragraph);messages.append(row);messages.scrollTop=messages.scrollHeight;}
+ form.addEventListener('submit',event=>{event.preventDefault();const text=input.value.trim();if(!text){error.hidden=false;status.textContent='Write a message to continue.';input.focus();return;}error.hidden=true;append('user',text);input.value='';append('assistant','A fresh idea! This is the fixed demonstration reply.');status.textContent='Your idea has a reply';input.focus();});
+ document.getElementById('clear').addEventListener('click',()=>{messages.replaceChildren();append('assistant','Welcome! What would you like to explore?');form.reset();error.hidden=true;status.textContent='A fresh conversation is ready';input.focus();});
+})();
+</script></body></html>
