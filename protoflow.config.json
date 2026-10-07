@@ -1,0 +1,368 @@
+{
+  "schemaVersion": 1,
+  "prototypeDir": "prototype",
+  "mappings": [
+    {
+      "id": "panel",
+      "prototypeFiles": [
+        "prototype/**"
+      ],
+      "prototype": "#panel",
+      "application": "#panel",
+      "component": "app/index.html"
+    }
+  ],
+  "classification": {
+    "rules": []
+  },
+  "policy": {
+    "maxRepairAttempts": 2,
+    "requireHumanReview": true,
+    "sequentialVersions": true
+  },
+  "watch": {
+    "pollMs": 200,
+    "idleMs": 1000
+  },
+  "verification": {
+    "build": {
+      "argv": [
+        "node",
+        "scripts/build-chat.mjs"
+      ]
+    },
+    "functional": {
+      "argv": [
+        "node",
+        "/Users/feature/code/protoflow/node_modules/@playwright/test/cli.js",
+        "test",
+        "--config",
+        "scripts/chat-playwright.config.mjs"
+      ],
+      "timeoutMs": 120000
+    }
+  },
+  "visual": {
+    "maxDiffRatio": 0.001,
+    "geometryTolerance": 1,
+    "pixelThreshold": 0.1,
+    "scenes": [
+      {
+        "id": "login-initial",
+        "steps": [],
+        "prototypeUrl": "prototype/index.html",
+        "applicationUrl": ".protoflow/site/index.html",
+        "viewport": {
+          "width": 1000,
+          "height": 760
+        },
+        "mappings": [
+          "panel"
+        ]
+      },
+      {
+        "id": "login-empty-errors",
+        "steps": [
+          {
+            "action": "click",
+            "prototype": "#action",
+            "application": "#action"
+          }
+        ],
+        "prototypeUrl": "prototype/index.html",
+        "applicationUrl": ".protoflow/site/index.html",
+        "viewport": {
+          "width": 1000,
+          "height": 760
+        },
+        "mappings": [
+          "panel"
+        ]
+      },
+      {
+        "id": "login-invalid-email",
+        "steps": [
+          {
+            "action": "fill",
+            "prototype": "#email",
+            "application": "#email",
+            "value": "not-an-email"
+          },
+          {
+            "action": "fill",
+            "prototype": "#password",
+            "application": "#password",
+            "value": "FlowDemo!42"
+          },
+          {
+            "action": "click",
+            "prototype": "#action",
+            "application": "#action"
+          }
+        ],
+        "prototypeUrl": "prototype/index.html",
+        "applicationUrl": ".protoflow/site/index.html",
+        "viewport": {
+          "width": 1000,
+          "height": 760
+        },
+        "mappings": [
+          "panel"
+        ]
+      },
+      {
+        "id": "login-wrong-credentials",
+        "steps": [
+          {
+            "action": "fill",
+            "prototype": "#email",
+            "application": "#email",
+            "value": "demo@protoflow.test"
+          },
+          {
+            "action": "fill",
+            "prototype": "#password",
+            "application": "#password",
+            "value": "WrongDemo!42"
+          },
+          {
+            "action": "click",
+            "prototype": "#action",
+            "application": "#action"
+          }
+        ],
+        "prototypeUrl": "prototype/index.html",
+        "applicationUrl": ".protoflow/site/index.html",
+        "viewport": {
+          "width": 1000,
+          "height": 760
+        },
+        "mappings": [
+          "panel"
+        ]
+      },
+      {
+        "id": "login-success",
+        "steps": [
+          {
+            "action": "fill",
+            "prototype": "#email",
+            "application": "#email",
+            "value": "demo@protoflow.test"
+          },
+          {
+            "action": "fill",
+            "prototype": "#password",
+            "application": "#password",
+            "value": "FlowDemo!42"
+          },
+          {
+            "action": "click",
+            "prototype": "#action",
+            "application": "#action"
+          }
+        ],
+        "prototypeUrl": "prototype/index.html",
+        "applicationUrl": ".protoflow/site/index.html",
+        "viewport": {
+          "width": 1000,
+          "height": 760
+        },
+        "mappings": [
+          "panel"
+        ]
+      },
+      {
+        "id": "login-logout",
+        "steps": [
+          {
+            "action": "fill",
+            "prototype": "#email",
+            "application": "#email",
+            "value": "demo@protoflow.test"
+          },
+          {
+            "action": "fill",
+            "prototype": "#password",
+            "application": "#password",
+            "value": "FlowDemo!42"
+          },
+          {
+            "action": "click",
+            "prototype": "#action",
+            "application": "#action"
+          },
+          {
+            "action": "click",
+            "prototype": "#logout",
+            "application": "#logout"
+          }
+        ],
+        "prototypeUrl": "prototype/index.html",
+        "applicationUrl": ".protoflow/site/index.html",
+        "viewport": {
+          "width": 1000,
+          "height": 760
+        },
+        "mappings": [
+          "panel"
+        ]
+      },
+      {
+        "id": "chat-initial",
+        "prototypeUrl": "prototype/chat.html",
+        "applicationUrl": ".protoflow/site/chat.html",
+        "viewport": {
+          "width": 1000,
+          "height": 760
+        },
+        "mappings": [
+          "panel"
+        ]
+      },
+      {
+        "id": "chat-empty-errors",
+        "prototypeUrl": "prototype/chat.html",
+        "applicationUrl": ".protoflow/site/chat.html",
+        "viewport": {
+          "width": 1000,
+          "height": 760
+        },
+        "mappings": [
+          "panel"
+        ],
+        "steps": [
+          {
+            "action": "click",
+            "prototype": "#action",
+            "application": "#action"
+          }
+        ]
+      },
+      {
+        "id": "chat-reply",
+        "prototypeUrl": "prototype/chat.html",
+        "applicationUrl": ".protoflow/site/chat.html",
+        "viewport": {
+          "width": 1000,
+          "height": 760
+        },
+        "mappings": [
+          "panel"
+        ],
+        "steps": [
+          {
+            "action": "fill",
+            "prototype": "#message-input",
+            "application": "#message-input",
+            "value": "Hello, ProtoFlow!"
+          },
+          {
+            "action": "click",
+            "prototype": "#action",
+            "application": "#action"
+          }
+        ]
+      },
+      {
+        "id": "chat-restart",
+        "prototypeUrl": "prototype/chat.html",
+        "applicationUrl": ".protoflow/site/chat.html",
+        "viewport": {
+          "width": 1000,
+          "height": 760
+        },
+        "mappings": [
+          "panel"
+        ],
+        "steps": [
+          {
+            "action": "fill",
+            "prototype": "#message-input",
+            "application": "#message-input",
+            "value": "Hello, ProtoFlow!"
+          },
+          {
+            "action": "click",
+            "prototype": "#action",
+            "application": "#action"
+          },
+          {
+            "action": "click",
+            "prototype": "#restart",
+            "application": "#restart"
+          }
+        ]
+      }
+    ]
+  },
+  "adapters": {
+    "codex": {
+      "command": {
+        "argv": [
+          "/Users/feature/.hermes/node/bin/node",
+          "/Users/feature/code/protoflow/scripts/codex-adapter.js",
+          "--model",
+          "gpt-6-astra",
+          "--ephemeral"
+        ],
+        "timeoutMs": 600000
+      }
+    },
+    "specKit": {
+      "command": null,
+      "install": {
+        "argv": [
+          "uvx",
+          "--from",
+          "specify-cli",
+          "specify",
+          "init",
+          "--here",
+          "--force",
+          "--non-interactive",
+          "--integration",
+          "codex",
+          "--script",
+          "sh"
+        ],
+        "timeoutMs": 600000
+      }
+    },
+    "bmad": {
+      "command": null,
+      "install": {
+        "argv": [
+          "npx",
+          "--yes",
+          "skills",
+          "add",
+          "bmad-code-org/BMAD-METHOD",
+          "--skill",
+          "*",
+          "--agent",
+          "codex",
+          "--yes"
+        ],
+        "timeoutMs": 600000
+      }
+    }
+  },
+  "source": {
+    "kind": "git",
+    "repository": "https://github.com/zhangqiu-ai/protoflow-test.git",
+    "branch": "protoflow-acceptance-20261006",
+    "path": "prototype",
+    "startSha": "2aa071dc65677bd34507d8932126fa1f40f2d368"
+  },
+  "runner": {
+    "pollMs": 15000,
+    "setup": {
+      "argv": [
+        "node",
+        "scripts/setup.mjs"
+      ]
+    },
+    "spec": "scripts/chat-spec.md"
+  }
+}
