@@ -1,6 +1,21 @@
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import Conversation from './Conversation.jsx';
 
 export default function App() {
+  const [route, setRoute] = useState(window.location.hash);
+
+  useEffect(() => {
+    const navigate = () => setRoute(window.location.hash);
+    window.addEventListener('hashchange', navigate);
+    return () => window.removeEventListener('hashchange', navigate);
+  }, []);
+
+  return route === '#conversation'
+    ? <div className="conversation-page"><Conversation /></div>
+    : <div className="login-page"><Login /></div>;
+}
+
+function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -104,6 +119,6 @@ export default function App() {
         <p id="status" role="status">{status}</p>
       </section>
     </main>
-    <footer>Fresh acceptance baseline</footer>
+    <footer><a href="#conversation">Open a fresh conversation →</a></footer>
   </>;
 }

@@ -220,6 +220,115 @@
         "mappings": [
           "screen"
         ]
+      },
+      {
+        "id": "conversation-initial",
+        "prototypeUrl": "prototype/conversation.html",
+        "applicationUrl": "app/clean-electron/.protoflow/renderer/index.html#conversation",
+        "viewport": {
+          "width": 1000,
+          "height": 760
+        },
+        "deviceScaleFactor": 1,
+        "locale": "en-US",
+        "timezoneId": "UTC",
+        "colorScheme": "light",
+        "steps": [],
+        "mappings": [
+          "screen"
+        ]
+      },
+      {
+        "id": "conversation-whitespace",
+        "prototypeUrl": "prototype/conversation.html",
+        "applicationUrl": "app/clean-electron/.protoflow/renderer/index.html#conversation",
+        "viewport": {
+          "width": 1000,
+          "height": 760
+        },
+        "deviceScaleFactor": 1,
+        "locale": "en-US",
+        "timezoneId": "UTC",
+        "colorScheme": "light",
+        "steps": [
+          {
+            "action": "fill",
+            "prototype": "#message",
+            "application": "#message",
+            "value": "   "
+          },
+          {
+            "action": "click",
+            "prototype": "#send",
+            "application": "#send"
+          }
+        ],
+        "mappings": [
+          "screen"
+        ]
+      },
+      {
+        "id": "conversation-send",
+        "prototypeUrl": "prototype/conversation.html",
+        "applicationUrl": "app/clean-electron/.protoflow/renderer/index.html#conversation",
+        "viewport": {
+          "width": 1000,
+          "height": 760
+        },
+        "deviceScaleFactor": 1,
+        "locale": "en-US",
+        "timezoneId": "UTC",
+        "colorScheme": "light",
+        "steps": [
+          {
+            "action": "fill",
+            "prototype": "#message",
+            "application": "#message",
+            "value": "A clean idea"
+          },
+          {
+            "action": "click",
+            "prototype": "#send",
+            "application": "#send"
+          }
+        ],
+        "mappings": [
+          "screen"
+        ]
+      },
+      {
+        "id": "conversation-clear",
+        "prototypeUrl": "prototype/conversation.html",
+        "applicationUrl": "app/clean-electron/.protoflow/renderer/index.html#conversation",
+        "viewport": {
+          "width": 1000,
+          "height": 760
+        },
+        "deviceScaleFactor": 1,
+        "locale": "en-US",
+        "timezoneId": "UTC",
+        "colorScheme": "light",
+        "steps": [
+          {
+            "action": "fill",
+            "prototype": "#message",
+            "application": "#message",
+            "value": "A clean idea"
+          },
+          {
+            "action": "click",
+            "prototype": "#send",
+            "application": "#send"
+          },
+          {
+            "action": "click",
+            "prototype": "#clear",
+            "application": "#clear"
+          }
+        ],
+        "mappings": [
+          "screen"
+        ]
       }
     ]
   },
@@ -228,7 +337,7 @@
     "repository": "https://github.com/zhangqiu-ai/protoflow-test.git",
     "branch": "protoflow-clean-prototypes-20261007",
     "path": "prototype",
-    "startSha": "719997246c6939fe70da308ea08b0170f3060aac"
+    "startSha": "00e896ded5f1068c862d6928b41ee2f5b63c6cfc"
   },
   "policy": {
     "maxRepairAttempts": 2,
@@ -264,7 +373,6 @@
     }
   },
   "runner": {
-    "spec": "app/clean-electron/verification-input/planning/fresh-acceptance.md",
-    "adr": "app/clean-electron/verification-input/planning/fresh-login-adr.json"
+    "spec": "app/clean-electron/verification-input/planning/fresh-acceptance.md"
   }
 }

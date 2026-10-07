@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "manifestId": "git-00e896ded5f1068c862d6928b41ee2f5b63c6cfc",
+  "hash": "81347e864ef75e1bd7f23ac8626a865590c0a7944b9d131efabd8b07ac18022b",
+  "files": {
+    "prototype/conversation.css": {
+      "hash": "2df810dcc28522f3c84a87dce008ea9b7b66972c57393951a478079103038afa",
+      "size": 2396
+    },
+    "prototype/conversation.html": {
+      "hash": "2149a9dd4c0d83ae9625367505c9574275fc197083c80ad5b078bc932ff8584d",
+      "size": 2668
+    },
+    "prototype/index.html": {
+      "hash": "948c66b9c66ce64dc29c96b64af1492555c0fe5603718d5cbaba22b7543b6356",
+      "size": 3788
+    },
+    "prototype/styles.css": {
+      "hash": "851e3e750c5d45bdd4c46ee0ea03a05e9d6947f295f0917a8dfa264d8d2b832c",
+      "size": 2819
+    }
+  }
+}
