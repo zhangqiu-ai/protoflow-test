@@ -18,7 +18,8 @@
   "policy": {
     "maxRepairAttempts": 2,
     "requireHumanReview": true,
-    "sequentialVersions": true
+    "sequentialVersions": true,
+    "autoApprove": true
   },
   "watch": {
     "pollMs": 200,
@@ -363,6 +364,12 @@
         "scripts/setup.mjs"
       ]
     },
-    "spec": "scripts/chat-spec.md"
+    "spec": "scripts/chat-spec.md",
+    "delivery": {
+      "remote": "origin",
+      "branch": "protoflow/delivery",
+      "baseBranch": "main",
+      "merge": "auto"
+    }
   }
 }
