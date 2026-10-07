@@ -1,0 +1,17 @@
+{
+  "status": "approved",
+  "reviewer": "使用者",
+  "manifestHash": "16b1f475fa928f7895379c7adbacfc642736a4e8082e29d1e3a573494073d0c5",
+  "decision": "Approve only the browser-local mock login demonstration in this exact frozen manifest: public fictional demo credentials, email/password validation, success, logout and repeated submissions; no account service, HTTP calls, cookies, browser storage, real credentials or password persistence. Keep existing resource freezing, FIFO, independent verification and bounded repair safeguards.",
+  "approvedAt": "2026-10-07T09:41:09.709Z",
+  "approvalEvidence": {
+    "type": "human_user_decision",
+    "sourceThreadId": "01a0ef7f-d1e6-753f-b380-fdb8d328a026",
+    "assistantProposalMessage": "Sentinel_d85ae1d3751081919dc4591a8a05524a",
+    "userDecisionMessage": "Sentinel_042f398b93208191a079798024aab860",
+    "humanDecisionAt": "2026-10-07T09:36:00Z",
+    "userText": "批准",
+    "scope": "Fixed dff8cda manifest only: browser-local mock login, fictional data, no account service or password storage",
+    "recordedAt": "2026-10-07T09:41:09.709Z"
+  }
+}
