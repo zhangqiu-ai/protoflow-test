@@ -1,0 +1,18 @@
+{
+  "status": "approved",
+  "reviewer": "human-user:Sentinel_5cbdce5927bc8191a534ce94b0f1c0ef",
+  "manifestId": "git-719997246c6939fe70da308ea08b0170f3060aac",
+  "manifestHash": "275fe1f25486b4fa521b97a8afd7f988ba952a8e808b2c2c962a455961cb0765",
+  "prototypeHash": "144b06052bd84579f50ab585ff5638717a137d6c9a4454df6070041d7e7896df",
+  "sourceSha": "719997246c6939fe70da308ea08b0170f3060aac",
+  "decision": "僅在隔離本機 Electron／React worktree 實作當前 GitHub SHA 的虛構記憶體登入；demo@fresh.protoflow.test／FreshDemo42! 僅示範，無真實認證、外部網路、密碼持久化或對外資料；保留驗證與安全邊界，真正 Codex 實作後獨立 build／functional／visual，失敗阻塞下一版。",
+  "approvalEvidence": {
+    "type": "human_user_decision",
+    "sourceThreadId": "01a0ef7f-d1e6-753f-b380-fdb8d328a026",
+    "proposalMessage": "Sentinel_a520f1db4f548191900ea304f385bad3",
+    "userMessage": "Sentinel_5cbdce5927bc8191a534ce94b0f1c0ef",
+    "userText": "批准",
+    "scope": "fresh SHA7199972 mock-only in-memory login in isolated local Electron+React; no real authentication, external calls or password persistence"
+  },
+  "approvedAt": "2026-10-07T12:37:00Z"
+}

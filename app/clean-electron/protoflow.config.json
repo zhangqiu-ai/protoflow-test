@@ -1,0 +1,270 @@
+{
+  "schemaVersion": 1,
+  "prototypeDir": "prototype",
+  "mappings": [
+    {
+      "id": "screen",
+      "prototypeFiles": [
+        "prototype/**"
+      ],
+      "prototype": "#screen",
+      "application": "#screen",
+      "component": "app/clean-electron/app/renderer/src/App.jsx"
+    }
+  ],
+  "classification": {
+    "rules": []
+  },
+  "watch": {
+    "pollMs": 200,
+    "idleMs": 1000
+  },
+  "verification": {
+    "build": {
+      "argv": [
+        "node",
+        "app/clean-electron/scripts/build-integrated.mjs"
+      ],
+      "timeoutMs": 120000
+    },
+    "functional": {
+      "adapter": "acceptance"
+    }
+  },
+  "visual": {
+    "mode": "adapter",
+    "maxDiffRatio": 0.005,
+    "pixelThreshold": 0.1,
+    "scenes": [
+      {
+        "id": "login-initial",
+        "prototypeUrl": "prototype/index.html",
+        "applicationUrl": "app/clean-electron/.protoflow/renderer/index.html#login",
+        "viewport": {
+          "width": 1000,
+          "height": 760
+        },
+        "locale": "en-US",
+        "timezoneId": "UTC",
+        "colorScheme": "light",
+        "deviceScaleFactor": 1,
+        "steps": [],
+        "mappings": [
+          "screen"
+        ]
+      },
+      {
+        "id": "login-empty",
+        "prototypeUrl": "prototype/index.html",
+        "applicationUrl": "app/clean-electron/.protoflow/renderer/index.html#login",
+        "viewport": {
+          "width": 1000,
+          "height": 760
+        },
+        "locale": "en-US",
+        "timezoneId": "UTC",
+        "colorScheme": "light",
+        "deviceScaleFactor": 1,
+        "steps": [
+          {
+            "action": "click",
+            "prototype": "#submit",
+            "application": "#submit"
+          }
+        ],
+        "mappings": [
+          "screen"
+        ]
+      },
+      {
+        "id": "login-invalid",
+        "prototypeUrl": "prototype/index.html",
+        "applicationUrl": "app/clean-electron/.protoflow/renderer/index.html#login",
+        "viewport": {
+          "width": 1000,
+          "height": 760
+        },
+        "locale": "en-US",
+        "timezoneId": "UTC",
+        "colorScheme": "light",
+        "deviceScaleFactor": 1,
+        "steps": [
+          {
+            "action": "fill",
+            "prototype": "#email",
+            "application": "#email",
+            "value": "bad"
+          },
+          {
+            "action": "fill",
+            "prototype": "#password",
+            "application": "#password",
+            "value": "123"
+          },
+          {
+            "action": "click",
+            "prototype": "#submit",
+            "application": "#submit"
+          }
+        ],
+        "mappings": [
+          "screen"
+        ]
+      },
+      {
+        "id": "login-wrong",
+        "prototypeUrl": "prototype/index.html",
+        "applicationUrl": "app/clean-electron/.protoflow/renderer/index.html#login",
+        "viewport": {
+          "width": 1000,
+          "height": 760
+        },
+        "locale": "en-US",
+        "timezoneId": "UTC",
+        "colorScheme": "light",
+        "deviceScaleFactor": 1,
+        "steps": [
+          {
+            "action": "fill",
+            "prototype": "#email",
+            "application": "#email",
+            "value": "demo@fresh.protoflow.test"
+          },
+          {
+            "action": "fill",
+            "prototype": "#password",
+            "application": "#password",
+            "value": "WrongDemo42!"
+          },
+          {
+            "action": "click",
+            "prototype": "#submit",
+            "application": "#submit"
+          }
+        ],
+        "mappings": [
+          "screen"
+        ]
+      },
+      {
+        "id": "login-success",
+        "prototypeUrl": "prototype/index.html",
+        "applicationUrl": "app/clean-electron/.protoflow/renderer/index.html#login",
+        "viewport": {
+          "width": 1000,
+          "height": 760
+        },
+        "locale": "en-US",
+        "timezoneId": "UTC",
+        "colorScheme": "light",
+        "deviceScaleFactor": 1,
+        "steps": [
+          {
+            "action": "fill",
+            "prototype": "#email",
+            "application": "#email",
+            "value": "demo@fresh.protoflow.test"
+          },
+          {
+            "action": "fill",
+            "prototype": "#password",
+            "application": "#password",
+            "value": "FreshDemo42!"
+          },
+          {
+            "action": "click",
+            "prototype": "#submit",
+            "application": "#submit"
+          }
+        ],
+        "mappings": [
+          "screen"
+        ]
+      },
+      {
+        "id": "login-logout",
+        "prototypeUrl": "prototype/index.html",
+        "applicationUrl": "app/clean-electron/.protoflow/renderer/index.html#login",
+        "viewport": {
+          "width": 1000,
+          "height": 760
+        },
+        "locale": "en-US",
+        "timezoneId": "UTC",
+        "colorScheme": "light",
+        "deviceScaleFactor": 1,
+        "steps": [
+          {
+            "action": "fill",
+            "prototype": "#email",
+            "application": "#email",
+            "value": "demo@fresh.protoflow.test"
+          },
+          {
+            "action": "fill",
+            "prototype": "#password",
+            "application": "#password",
+            "value": "FreshDemo42!"
+          },
+          {
+            "action": "click",
+            "prototype": "#submit",
+            "application": "#submit"
+          },
+          {
+            "action": "click",
+            "prototype": "#logout",
+            "application": "#logout"
+          }
+        ],
+        "mappings": [
+          "screen"
+        ]
+      }
+    ]
+  },
+  "source": {
+    "kind": "git",
+    "repository": "https://github.com/zhangqiu-ai/protoflow-test.git",
+    "branch": "protoflow-clean-prototypes-20261007",
+    "path": "prototype",
+    "startSha": "719997246c6939fe70da308ea08b0170f3060aac"
+  },
+  "policy": {
+    "maxRepairAttempts": 2,
+    "requireHumanReview": true,
+    "sequentialVersions": true
+  },
+  "adapters": {
+    "acceptance": {
+      "command": {
+        "argv": [
+          "node",
+          "app/clean-electron/scripts/electron-acceptance.mjs"
+        ],
+        "timeoutMs": 240000
+      },
+      "options": {
+        "viewport": {
+          "width": 1000,
+          "height": 760
+        },
+        "shutdownTimeoutMs": 15000,
+        "functional": {
+          "argv": [
+            "node",
+            "app/clean-electron/scripts/test-integrated.mjs"
+          ],
+          "timeoutMs": 180000
+        },
+        "applicationRoot": "app/clean-electron",
+        "functionalUrl": "app/clean-electron/.protoflow/renderer/index.html",
+        "integratedLegacy": true
+      }
+    }
+  },
+  "runner": {
+    "spec": "app/clean-electron/verification-input/planning/fresh-acceptance.md",
+    "adr": "app/clean-electron/verification-input/planning/fresh-login-adr.json"
+  }
+}
