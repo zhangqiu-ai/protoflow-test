@@ -7,7 +7,16 @@ description: Use ProtoFlow to turn prototype changes into mapped application cha
 
 ProtoFlow 是共享引擎。本 Skill 引導設計輸入到正式實作的流程，目標專案只保留 Skill、`protoflow.config.json`、`AGENTS.md` 約定與 `.protoflow/` 證據。使用已安裝的 `protoflow` CLI；若命令不可用，先定位共享引擎並使用 `node <engine>/bin/protoflow.js`，不要將引擎複製進目標專案。
 
-## 原型結構與映射
+## 語意錨點（schemaVersion 2）
+
+`protoflow.config.json` 為 `schemaVersion: 2` 時以錨點取代 mapping（共享引擎 `docs/proposals/0001-anchor-contracts.md`）：
+
+- 原型每頁一個畫面錨點（`<body data-pf="<screen>" data-pf-role="screen">`），追蹤的元素以 `data-pf="<screen>.<name>"` 標記，`data-pf-role` 為 region／element／action／input；狀態寫在 `<page>.pf.json`。新頁面或缺錨點時先執行 `protoflow anchors suggest --patch-file .protoflow/anchors.patch`，把建議交給使用者審閱 ID 後才提交原型；不要自行在原型 repo 推送錨點修改。`protoflow anchors lint` 必須 PASS。
+- 實作時讀 context 的 `anchors`：`screens` 是本版受影響畫面的合約，`target.convention` 說明本平台如何帶上錨點 ID，`anchorIndex` 列出既有錨點在程式碼中的位置。每個錨點必須以**完全相同的 ID** 出現在應用中；畫面需可由 `urlTemplate`（Web）或外部驅動器到達。以錨點 ID 搜尋程式碼找實作位置，不需要也不要新增 mapping。
+- verify 的 `visual.tiers` 依序是 structure（文字、數量、順序、互動、sidecar 期望）、tokens、layout、visual；`visual.scenes[].tiers[].reasons` 指出具體錨點。修復時依原因修改應用，不修改原型、合約或門檻。
+- v1 專案遷移：`protoflow migrate anchors` 產生草稿（原型 patch、應用 patch、v2 配置）；原型 patch 屬設計端，套用前需使用者確認。
+
+## 原型結構與映射（schemaVersion 1）
 
 按可獨立瀏覽、修改及驗收的頁面適度拆分原型，再抽出實際共用的 tokens、styles、scripts 與 assets。保留既有應用元件架構，不將原型目錄鏡像到應用；同一 HTML 可列入多筆 mapping，分別指向頁面中不同區域的應用元件。不要套用其他專案或範例的頁面、元件名稱。
 
@@ -35,7 +44,7 @@ BLOCKED／STOPPED／中斷 RUNNING 時先閱讀 execution／verification 的實�
 6. 配置 Codex adapter 後，執行 `protoflow execute --project <root> --context <id>` 檢查乾跑 request，再於授權範圍內加上 `--execute` 實際執行；也可由目前 Codex 依上下文直接實作，再執行 verify。
 7. `protoflow verify --project <root> --manifest <id>` 執行 build、functional、visual，原型端使用該版本的凍結副本。PASS 後佇列前進到下一個版本。新增／變更／修復功能需維護目標專案 Node.js Playwright 回歸測試並使用 runner。尚未配置或尚未執行的驗證是 `NOT_RUN`，不能當作通過。
 8. 失敗時執行 `protoflow repair --project <root> --manifest <id> --execute`；它依配置的 `maxRepairAttempts` 停止。讀取每次驗證與修復記錄，上限耗盡或缺少外部 adapter 時報告具體阻塞。
-9. `protoflow review create --project <root> --manifest <id> --verification <id>` 建立人工 Review。將實際差異與驗證證據呈現給使用者；只有明確人類批准後才執行 `protoflow review approve --project <root> --review <id> --reviewer <human-id>`。不要將自己的判斷登記為人類批准。
+9. `protoflow review create --project <root> --manifest <id> --verification <id>` 建立人工 Review。將實際差異與驗證證據呈現給使用者；只有明確人類批准後才執行 `protoflow review approve --project <root> --review <id> --reviewer <human-id>`。不要將自己的判斷登記為人類批准。專案配置 `policy.autoApprove: true` 時，Runner 交付流程會自動以 `ai:protoflow-runner` 批准並標記 `automated`；不要手動用 `--reviewer` 模擬此動作，也不要把 L3 ADR 當成可自動批准。
 10. `protoflow baseline create --project <root> --review <id>` 保存已批准的 UI Baseline。內容或驗證變更會使舊批准失效，應重新 verify／review。
 
 執行時以 CLI 回傳的 session ID 與證據路徑為準；先使用 `protoflow --help` 確認命令。不得自動 commit、push、部署或覆寫既有 Baseline；報告通過、失敗、未執行與仍需人類確認的事項。
