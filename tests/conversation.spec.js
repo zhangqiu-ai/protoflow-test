@@ -2,7 +2,7 @@ import {test, expect} from '@playwright/test';
 import path from 'node:path';
 import {pathToFileURL} from 'node:url';
 
-// Regression contract: frozen git-6f5cb386f8070ea309dbeaafccde1aaa07b5cd0f.
+// Regression contract: frozen git-64fac5f111076a4fbb8bd6e301f73a37eff37da7.
 const applicationUrl = pathToFileURL(path.resolve('.protoflow/site/chat.html')).href;
 const welcome = 'Hi! Write a message to try this local conversation.';
 const reply = 'Thanks for your message. This is a fixed local demo reply.';
@@ -46,6 +46,32 @@ test('canned replies badge uses amber colors and retains its responsive visibili
   await page.setViewportSize({width: 921, height: 760});
   await expect(badge).toBeVisible();
 });
+
+test('send button is an indigo pill', async ({page}) => {
+  const send = sendButton(page);
+  await expect(send).toHaveCSS('background-color', 'rgb(79, 70, 229)');
+  await expect(send).toHaveCSS('border-radius', '21px');
+  await expect(send).toHaveCSS('height', '41px');
+});
+
+for (const width of [390, 920, 921]) {
+  test(`restart is accessible and clears messages, draft and error at ${width}px`, async ({page}) => {
+    await page.setViewportSize({width, height: 844});
+    await send(page, 'Before restart');
+    await sendButton(page).click();
+    await expect(page.getByRole('alert')).toBeVisible();
+    await input(page).fill('Discarded draft');
+    await expect(restart(page)).toHaveCount(1);
+    await expect(restart(page)).toBeVisible();
+    await restart(page).focus();
+    await restart(page).press('Enter');
+    await expect(messages(page)).toHaveText([welcome]);
+    await expect(input(page)).toHaveValue('');
+    await expect(input(page)).toBeFocused();
+    await expect(page.getByRole('alert')).toBeHidden();
+    await expect(page.getByRole('status')).toHaveText('Conversation cleared.');
+  });
+}
 
 test('blank messages are rejected and a valid message clears the error', async ({page}) => {
   for (const text of ['', ' \n\t ']) {

@@ -4,7 +4,7 @@
 <header class="page-header"><span class="wordmark"><span class="brand-mark">P</span> ProtoFlow</span><a href="index.html">← Back to sign in</a></header>
 <main id="panel">
  <aside><span class="section-tag">YOUR WORKSPACE</span><h2>Conversations</h2><button id="restart" type="button">＋ Start new</button><div class="selected-thread"><span class="thread-dot"></span><div><strong>Demo conversation</strong><small>Ready to explore</small></div></div><div class="aside-note"><strong>Keep it simple.</strong><p>Write a message and see a fixed demo reply. Refresh starts a new conversation.</p><span>LOCAL DEMO</span></div></aside>
- <section class="conversation"><div class="conversation-header"><div><span class="section-tag">ONE COMMIT, ONE EXPERIENCE</span><h1>Local demo conversation</h1></div><span class="demo-badge">Canned replies</span></div>
+ <section class="conversation"><div class="conversation-header"><div><span class="section-tag">ONE COMMIT, ONE EXPERIENCE</span><h1>Local demo conversation</h1></div><span class="demo-badge">Canned replies</span><button id="restart-mobile" class="mobile-restart" type="button">＋ Start new</button></div>
   <div id="messages" role="log" aria-label="Conversation" aria-live="polite"><article class="message assistant" data-speaker="assistant"><span class="avatar">P</span><div><strong>ProtoFlow demo</strong><p>Hi! Write a message to try this local conversation.</p></div></article></div>
   <form id="message-form" novalidate autocomplete="off"><label for="message-input">Your message</label><div class="composer"><textarea id="message-input" name="message" rows="2" maxlength="280" placeholder="Try: Hello, ProtoFlow!" aria-describedby="input-error"></textarea><button id="action" type="submit">Send →</button></div><p id="input-error" role="alert" hidden>Type a message first.</p><div class="composer-meta"><p id="status" role="status">Ready</p><span>Fictional demo messages only</span></div></form>
  </section>
@@ -37,9 +37,10 @@
   error.hidden = true; appendMessage('user', text); input.value = ''; appendMessage('assistant', reply);
   status.textContent = 'Reply added.'; input.focus();
  });
- document.getElementById('restart').addEventListener('click', function () {
+ function restartConversation() {
   messages.replaceChildren(); appendMessage('assistant', welcome); form.reset(); error.hidden = true;
   status.textContent = 'Conversation cleared.'; input.focus();
- });
+ }
+ document.querySelectorAll('#restart, #restart-mobile').forEach(button => button.addEventListener('click', restartConversation));
 }());
 </script></body></html>
