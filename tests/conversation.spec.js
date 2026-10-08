@@ -2,7 +2,7 @@ import {test, expect} from '@playwright/test';
 import path from 'node:path';
 import {pathToFileURL} from 'node:url';
 
-// Regression contract: frozen git-6f5cb386f8070ea309dbeaafccde1aaa07b5cd0f.
+// Regression contract: frozen git-85223b16aa0a1a9ad959350176a542c8a10ea84b.
 const applicationUrl = pathToFileURL(path.resolve('.protoflow/site/chat.html')).href;
 const welcome = 'Hi! Write a message to try this local conversation.';
 const reply = 'Thanks for your message. This is a fixed local demo reply.';
@@ -32,6 +32,22 @@ test('initial conversation exposes its welcome, local demo description and compo
   await expect(restart(page)).toBeVisible();
   await expect(page.getByRole('status')).toHaveText('Ready');
   await expect(page.getByRole('alert')).toBeHidden();
+});
+
+test('every frozen chat anchor has one application-owned semantic test id', async ({page}) => {
+  const anchors = [
+    'chat', 'chat.header', 'chat.back', 'chat.panel', 'chat.sidebar',
+    'chat.sidebar-title', 'chat.restart', 'chat.conversation', 'chat.title',
+    'chat.messages', 'chat.form', 'chat.input', 'chat.send', 'chat.error',
+    'chat.status', 'chat.footer',
+  ];
+
+  for (const anchor of anchors) {
+    await expect(page.getByTestId(anchor)).toHaveCount(1);
+  }
+
+  await expect(page.locator('body')).toHaveAttribute('data-testid', 'chat');
+  await expect(page.getByTestId('chat.error')).toBeHidden();
 });
 
 test('blank messages are rejected and a valid message clears the error', async ({page}) => {

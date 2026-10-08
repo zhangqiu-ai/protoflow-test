@@ -1,15 +1,15 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>ProtoFlow — Demo conversation</title><link rel="stylesheet" href="chat.css"></head>
-<body>
-<header class="page-header"><span class="wordmark"><span class="brand-mark">P</span> ProtoFlow</span><a href="index.html">← Back to sign in</a></header>
-<main id="panel">
- <aside><span class="section-tag">YOUR WORKSPACE</span><h2>Conversations</h2><button id="restart" type="button">＋ Start new</button><div class="selected-thread"><span class="thread-dot"></span><div><strong>Demo conversation</strong><small>Ready to explore</small></div></div><div class="aside-note"><strong>Keep it simple.</strong><p>Write a message and see a fixed demo reply. Refresh starts a new conversation.</p><span>LOCAL DEMO</span></div></aside>
- <section class="conversation"><div class="conversation-header"><div><span class="section-tag">ONE COMMIT, ONE EXPERIENCE</span><h1>Local demo conversation</h1></div><span class="demo-badge">Canned replies</span></div>
-  <div id="messages" role="log" aria-label="Conversation" aria-live="polite"><article class="message assistant" data-speaker="assistant"><span class="avatar">P</span><div><strong>ProtoFlow demo</strong><p>Hi! Write a message to try this local conversation.</p></div></article></div>
-  <form id="message-form" novalidate autocomplete="off"><label for="message-input">Your message</label><div class="composer"><textarea id="message-input" name="message" rows="2" maxlength="280" placeholder="Try: Hello, ProtoFlow!" aria-describedby="input-error"></textarea><button id="action" type="submit">Send →</button></div><p id="input-error" role="alert" hidden>Type a message first.</p><div class="composer-meta"><p id="status" role="status">Ready</p><span>Fictional demo messages only</span></div></form>
+<body data-testid="chat">
+<header class="page-header" data-testid="chat.header"><span class="wordmark"><span class="brand-mark">P</span> ProtoFlow</span><a href="index.html" data-testid="chat.back">← Back to sign in</a></header>
+<main id="panel" data-testid="chat.panel">
+ <aside data-testid="chat.sidebar"><span class="section-tag">YOUR WORKSPACE</span><h2 data-testid="chat.sidebar-title">Conversations</h2><button id="restart" type="button" data-testid="chat.restart">＋ Start new</button><div class="selected-thread"><span class="thread-dot"></span><div><strong>Demo conversation</strong><small>Ready to explore</small></div></div><div class="aside-note"><strong>Keep it simple.</strong><p>Write a message and see a fixed demo reply. Refresh starts a new conversation.</p><span>LOCAL DEMO</span></div></aside>
+ <section class="conversation" data-testid="chat.conversation"><div class="conversation-header"><div><span class="section-tag">ONE COMMIT, ONE EXPERIENCE</span><h1 data-testid="chat.title">Local demo conversation</h1></div><span class="demo-badge">Canned replies</span></div>
+  <div id="messages" role="log" aria-label="Conversation" aria-live="polite" data-testid="chat.messages"><article class="message assistant" data-speaker="assistant"><span class="avatar">P</span><div><strong>ProtoFlow demo</strong><p>Hi! Write a message to try this local conversation.</p></div></article></div>
+  <form id="message-form" novalidate autocomplete="off" data-testid="chat.form"><label for="message-input">Your message</label><div class="composer"><textarea id="message-input" name="message" rows="2" maxlength="280" placeholder="Try: Hello, ProtoFlow!" aria-describedby="input-error" data-testid="chat.input"></textarea><button id="action" type="submit" data-testid="chat.send">Send →</button></div><p id="input-error" role="alert" data-testid="chat.error" hidden>Type a message first.</p><div class="composer-meta"><p id="status" role="status" data-testid="chat.status">Ready</p><span>Fictional demo messages only</span></div></form>
  </section>
 </main>
-<footer>Prototype-driven development <span>·</span> Every version gets its own verification</footer>
+<footer data-testid="chat.footer">Prototype-driven development <span>·</span> Every version gets its own verification</footer>
 <script>
 (function () {
  const form = document.getElementById('message-form');

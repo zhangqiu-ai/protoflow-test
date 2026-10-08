@@ -2,7 +2,7 @@ import {test, expect} from '@playwright/test';
 import path from 'node:path';
 import {pathToFileURL} from 'node:url';
 
-// Regression contract: frozen git-dff8cda46e1ae1cebfe9f0e632e9db59986c5073.
+// Regression contract: frozen git-85223b16aa0a1a9ad959350176a542c8a10ea84b.
 const applicationUrl = pathToFileURL(path.resolve('.protoflow/site/index.html')).href;
 const demoEmail = 'demo@protoflow.test';
 const demoPassword = 'FlowDemo!42';
@@ -28,6 +28,11 @@ test('initial screen labels the local demo and exposes accessible form fields', 
   await expect(signIn(page)).toBeVisible();
   await expect(page.getByRole('button', {name: 'Log out', exact: true})).toBeHidden();
   await expect(page.getByRole('status')).toHaveText('Ready');
+});
+
+test('login screen exposes the frozen semantic screen anchor', async ({page}) => {
+  await expect(page.getByTestId('login')).toHaveCount(1);
+  await expect(page.locator('body')).toHaveAttribute('data-testid', 'login');
 });
 
 test('empty submission reports both required fields and focuses email', async ({page}) => {
