@@ -31,7 +31,7 @@ app.on('window-all-closed', () => app.quit());
 let quitReady = false;
 let closingConnections = false;
 app.on('before-quit', event => {
-  if (quitReady) return;
+  if (quitReady || !applicationSession) return;
   event.preventDefault();
   if (closingConnections) return;
   closingConnections = true;
