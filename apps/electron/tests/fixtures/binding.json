@@ -1,0 +1,15 @@
+{
+  "repository": "zhangqiu-ai/protoflow-test",
+  "sourceSha": "76b9a0af9924b7c9f471bda56486030cfa146fe1",
+  "sourcePath": "prototype",
+  "purpose": "Read-only test reference; excluded from renderer build",
+  "files": {
+    "chat.css": "cff28cc6e93037fa86a69d92248633d36f2c1b56e7060b9f96d13617904e923f",
+    "chat.html": "23322b60d2db9371c57d2478fe880b4a9e01f4df5d61183145fdfec7ee1d526e",
+    "chat.pf.json": "84560edf519963e7876a44b92ba6f97d2ae7ab40ded521b40277e69de63379ab",
+    "help.css": "63a28bfe0ad6c8f368c20f8539ebc91e7c5774533e6443fb9a5bb1423c3865d4",
+    "help.html": "81e6cefeb9362ba88c59f69a8373f074bf4f38e58cebb6f9ba6c49765e91ed68",
+    "index.html": "5a9418fdfeb14041444973a2f35a8974464d0b1ab79f4a0c83eacb630c11eee3",
+    "styles.css": "dfc85957c434822a91bf279d1a567af4a81aa99ce42e1ba2cdb229b6f0d79bc9"
+  }
+}
