@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>ProtoFlow — Demo sign in</title><link rel="stylesheet" href="styles.css"></head>
+<body data-pf="login" data-pf-role="screen">
+<div class="page-caption"><span class="wordmark"><span class="brand-mark">P</span> ProtoFlow</span><span class="demo-label">LOCAL DEMO · NO ACCOUNT SERVICE</span></div>
+<main id="panel">
+ <section class="intro" aria-label="About the demo">
+  <span class="eyebrow">FROM IDEA TO WORKING PRODUCT</span>
+  <h1>Your next version<br>starts here.</h1>
+  <p class="intro-copy">A prototype commit becomes a verified application. Try the sign-in flow, then see the same experience on both sides.</p>
+  <div class="flow"><div><span>01</span><strong>Prototype</strong><small>Design the interaction</small></div><div><span>02</span><strong>Commit</strong><small>Freeze the exact version</small></div><div><span>03</span><strong>Application</strong><small>Build and verify the result</small></div></div>
+  <p class="intro-note"><span class="live-dot"></span> One commit. One verified checkpoint.</p>
+ </section>
+ <section class="content">
+  <div id="sign-in">
+   <span class="section-tag">WELCOME BACK</span><h2>Sign in to ProtoFlow</h2><p class="subtitle">Explore your demo workspace.</p>
+   <form id="login-form" novalidate autocomplete="off">
+    <label for="email">Email address</label><input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="off" aria-describedby="email-error">
+    <p id="email-error" class="field-error" hidden></p>
+    <label for="password">Password</label><input id="password" name="password" type="password" placeholder="At least 8 characters" autocomplete="off" aria-describedby="password-error">
+    <p id="password-error" class="field-error" hidden></p>
+    <p id="form-message" class="form-message" role="alert" hidden></p>
+    <button id="action" type="submit">Sign in <span aria-hidden="true">→</span></button>
+   </form>
+   <div class="demo-credentials"><strong>Try the demo</strong><p>demo@protoflow.test <span> / </span> FlowDemo!42</p><small>Fictional credentials. Nothing is saved or sent.</small></div>
+  </div>
+  <div id="signed-in" hidden>
+   <div class="success-symbol" aria-hidden="true">✓</div><span class="section-tag">DEMO WORKSPACE</span><h2>You're signed in</h2><p class="subtitle">Welcome back. Your workspace is ready.</p>
+   <div class="account"><span class="avatar" aria-hidden="true">D</span><div><strong>Demo member</strong><p id="user-email">demo@protoflow.test</p></div><span class="session-label">Demo session</span></div>
+   <div class="workspace-card"><span class="card-label">CURRENT CHECKPOINT</span><strong>Mock login experience</strong><p>Email validation, sign in and log out — all in your browser.</p></div>
+   <button id="logout" type="button">Log out</button>
+  </div>
+  <p id="status" role="status" aria-live="polite">Ready</p>
+ </section>
+</main>
+<footer><a href="chat.html">Open the demo conversation →</a><span>·</span>ProtoFlow test workspace</footer>
+<script>
+(function () {
+ const form = document.getElementById('login-form');
+ const email = document.getElementById('email');
+ const password = document.getElementById('password');
+ const status = document.getElementById('status');
+ const message = document.getElementById('form-message');
+ let signedIn = false;
+ function error(field, text) {
+  const node = document.getElementById(field.id + '-error');
+  node.textContent = text;
+  node.hidden = !text;
+  field.setAttribute('aria-invalid', text ? 'true' : 'false');
+ }
+ function clearErrors() { error(email, ''); error(password, ''); message.hidden = true; message.textContent = ''; }
+ form.addEventListener('submit', function (event) {
+  event.preventDefault();
+  if (signedIn) return;
+  clearErrors();
+  const address = email.value.trim().toLowerCase();
+  const emailError = !address ? 'Enter your email address.' : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(address) ? 'Enter a valid email address.' : '';
+  const passwordError = !password.value ? 'Enter your password.' : password.value.length < 8 ? 'Use at least 8 characters.' : '';
+  error(email, emailError); error(password, passwordError);
+  if (emailError || passwordError) {
+   status.textContent = 'Check the highlighted fields.';
+   (emailError ? email : password).focus();
+   return;
+  }
+  if (address !== 'demo@protoflow.test' || password.value !== 'FlowDemo!42') {
+   message.textContent = 'Use the demo email and password shown below.'; message.hidden = false;
+   status.textContent = 'Demo sign in was not completed.';
+   return;
+  }
+  signedIn = true;
+  form.reset();
+  document.getElementById('sign-in').hidden = true;
+  document.getElementById('signed-in').hidden = false;
+  status.textContent = 'Signed in';
+  document.getElementById('logout').focus();
+ });
+ document.getElementById('logout').addEventListener('click', function () {
+  signedIn = false; form.reset(); clearErrors();
+  document.getElementById('signed-in').hidden = true;
+  document.getElementById('sign-in').hidden = false;
+  status.textContent = 'Signed out. You can sign in again.';
+  email.focus();
+ });
+}());
+</script>
+</body></html>

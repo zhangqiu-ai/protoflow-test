@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "screen": "chat",
+  "states": {
+    "empty-error": {
+      "steps": [
+        {
+          "action": "tap",
+          "anchor": "chat.send"
+        }
+      ],
+      "expect": {
+        "visible": [
+          "chat.error"
+        ]
+      }
+    },
+    "reply": {
+      "steps": [
+        {
+          "action": "fill",
+          "anchor": "chat.input",
+          "value": "Hello, ProtoFlow!"
+        },
+        {
+          "action": "tap",
+          "anchor": "chat.send"
+        }
+      ],
+      "expect": {
+        "hidden": [
+          "chat.error"
+        ]
+      }
+    },
+    "restart": {
+      "from": "reply",
+      "steps": [
+        {
+          "action": "tap",
+          "anchor": "chat.restart"
+        }
+      ]
+    }
+  }
+}
