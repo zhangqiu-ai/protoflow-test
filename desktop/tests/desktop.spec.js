@@ -16,12 +16,12 @@ const reply = 'Thanks for your message. This is a fixed local demo reply.';
 let app, window, profile, pageErrors, network;
 
 test.beforeEach(async () => {
+  pageErrors = []; network = [];
   profile = await mkdtemp(path.join(tmpdir(), 'protoflow-desktop-test-'));
   const env = {...process.env, DESKTOP_USER_DATA: profile};
   delete env.ELECTRON_RUN_AS_NODE;
   app = await electron.launch({executablePath, args: [main], env});
   window = await app.firstWindow();
-  pageErrors = []; network = [];
   window.on('pageerror', error => pageErrors.push(error.message));
   window.on('request', request => { if (/^https?:/.test(request.url())) network.push(request.url()); });
   await window.waitForLoadState('load');
@@ -88,10 +88,13 @@ test('the conversation rejects empty messages, replies and restarts', async () =
 
 test('the help screen lists the tips in prototype order', async () => {
   await open('help');
-  await expect(window.getByTestId('help.title')).toHaveText('How this demo works');
+  await expect(window.getByTestId('help.title')).toHaveText('How ProtoFlow ships each version');
   await expect(window.getByTestId('help.tip')).toHaveCount(3);
   await expect(window.getByTestId('help.tip').locator('strong')).toHaveText(['Prototype first', 'One version at a time', 'Checked by anchors']);
   await expect(window.getByTestId('help.footer')).toHaveText('Prototype-driven development');
+  await expect(window.getByTestId('help.tip').first()).toHaveCSS('background-color', 'rgb(238, 247, 244)');
+  await expect(window.getByTestId('help.tip').first()).toHaveCSS('border-left-color', 'rgb(13, 118, 110)');
+  await expect(window.getByTestId('help.tip').first().locator('strong')).toHaveCSS('color', 'rgb(11, 97, 93)');
 });
 
 test('links connect sign-in, conversation and help inside the desktop window', async () => {
