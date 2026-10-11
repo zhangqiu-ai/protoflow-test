@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 // Publishes every application file to .protoflow/site, so a new screen needs no build or config change.
+// app/tests holds the web target's own regression suite and is not published.
 // Inline handlers and scripts must parse; the operator failure injection is kept for FIFO acceptance.
 const out = '.protoflow/site';
 await fs.rm(out, { recursive: true, force: true });
@@ -9,6 +10,7 @@ let pages = 0;
 for (const entry of await fs.readdir('app', { recursive: true, withFileTypes: true })) {
   if (!entry.isFile()) continue;
   const source = path.join(entry.parentPath, entry.name);
+  if (path.relative('app', source).split(path.sep)[0] === 'tests') continue;
   const target = path.join(out, path.relative('app', source));
   if (source.endsWith('.html')) {
     const html = await fs.readFile(source, 'utf8');

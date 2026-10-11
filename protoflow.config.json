@@ -28,7 +28,42 @@
           "--config",
           "scripts/chat-playwright.config.mjs"
         ],
-        "timeoutMs": 120000
+        "timeoutMs": 180000
+      },
+      "viewport": {
+        "width": 1000,
+        "height": 760,
+        "scale": 1
+      },
+      "visual": {
+        "mode": "pixel",
+        "maxDiffRatio": 0.005
+      }
+    },
+    {
+      "id": "electron",
+      "platform": "electron",
+      "root": "desktop",
+      "driver": {
+        "kind": "playwright-electron",
+        "main": "main.cjs",
+        "route": "renderer/{page}.html"
+      },
+      "build": {
+        "argv": [
+          "node",
+          "scripts/desktop-build.mjs"
+        ]
+      },
+      "functional": {
+        "argv": [
+          "node",
+          "/Users/feature/code/protoflow/node_modules/@playwright/test/cli.js",
+          "test",
+          "--config",
+          "scripts/desktop-playwright.config.mjs"
+        ],
+        "timeoutMs": 300000
       },
       "viewport": {
         "width": 1000,
@@ -41,6 +76,12 @@
       }
     }
   ],
+  "release": {
+    "requireTargets": [
+      "web",
+      "electron"
+    ]
+  },
   "classification": {
     "rules": []
   },
@@ -58,13 +99,13 @@
     "codex": {
       "command": {
         "argv": [
-          "/Users/feature/.hermes/node/bin/node",
-          "/Users/feature/code/protoflow-worktrees/anchor-contracts/scripts/codex-adapter.js",
+          "/Users/feature/.local/bin/node",
+          "/Users/feature/code/protoflow/scripts/codex-adapter.js",
           "--model",
           "gpt-5.6-terra",
           "--ephemeral"
         ],
-        "timeoutMs": 900000
+        "timeoutMs": 1200000
       }
     },
     "specKit": {
@@ -104,14 +145,25 @@
         ],
         "timeoutMs": 600000
       }
+    },
+    "independentReview": {
+      "command": {
+        "argv": [
+          "/Users/feature/.local/bin/node",
+          "/Users/feature/code/protoflow/scripts/codex-review-adapter.js",
+          "--model",
+          "gpt-5.6-terra"
+        ],
+        "timeoutMs": 900000
+      }
     }
   },
   "source": {
     "kind": "git",
     "repository": "https://github.com/zhangqiu-ai/protoflow-test.git",
-    "branch": "protoflow-anchors-20261008",
+    "branch": "protoflow-dual-20261011",
     "path": "prototype",
-    "startSha": "6f5cb386f8070ea309dbeaafccde1aaa07b5cd0f"
+    "startSha": "76b9a0af9924b7c9f471bda56486030cfa146fe1"
   },
   "runner": {
     "pollMs": 15000,
@@ -121,11 +173,11 @@
         "scripts/setup.mjs"
       ]
     },
-    "spec": "scripts/chat-spec.md",
+    "spec": "scripts/dual-spec.md",
     "delivery": {
       "remote": "origin",
-      "branch": "protoflow/anchors-delivery",
-      "baseBranch": "anchors-acceptance",
+      "branch": "protoflow/dual-delivery",
+      "baseBranch": "dual-acceptance",
       "merge": "auto"
     }
   }

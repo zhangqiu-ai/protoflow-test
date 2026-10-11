@@ -15,4 +15,4 @@
 - Review 與 UI Baseline 必須綁定當前 manifest、prototype、application 與驗證證據。只有配置 `policy.autoApprove: true` 時，Runner 才以 `ai:protoflow-runner`（`reviewerKind: automated`）自動批准 PASS 版本；其他情況自動代理不得代替人類批准，任何時候都不得把自動批准登記成真人。L3 ADR 仍需真人決策。
 <!-- protoflow:end -->
 
-本專案驗收範圍：閱讀 ACCEPTANCE.md。Codex 僅修改 app/ 與 tests/；保留 scripts/、protoflow.config.json、.protoflow/fail-build（操作員故障注入）與所有凍結原型。不要將任何驗證證據人工改成 PASS。
+本專案驗收範圍：閱讀 ACCEPTANCE.md。雙平台（Web + Electron）驗收：web target 只修改 app/（回歸測試在 app/tests/），electron target 只修改 desktop/（回歸測試在 desktop/tests/）；不修改另一個 target 的 root 或頂層共享檔案。保留 scripts/、protoflow.config.json、.protoflow/fail-build（操作員故障注入）與所有凍結原型。不要將任何驗證證據人工改成 PASS。

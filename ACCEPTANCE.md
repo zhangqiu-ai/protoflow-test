@@ -11,3 +11,7 @@ The prototype is the design input; application files must only be changed by con
 ## Anchor acceptance (schemaVersion 2)
 
 From the GitHub stream `protoflow-anchors-20261008` on, prototypes carry semantic anchors (`data-pf`) and states in `<page>.pf.json`. Each anchor must appear in the application with the identical ID as `data-testid` on the implementing element; each screen's root (`<body>`) carries the screen ID. Every prototype page is reachable at `.protoflow/site/<page>.html`: `scripts/build.mjs` publishes all files under `app/`, so a new screen only needs a new application page. Acceptance is anchored: structure, design tokens, relative layout and pixels are compared per screen and state, in addition to the protected suites. Codex still edits only app/ and tests/.
+
+## Dual-platform acceptance (Web + Electron)
+
+From the GitHub stream `protoflow-dual-20261011` on, the same prototype versions are implemented by two targets, each in its own root: `web` in `app/` (static pages published by `scripts/build.mjs`, regression tests in `app/tests/`) and `electron` in `desktop/` (real Electron app started from `desktop/main.cjs`, one page per screen at `desktop/renderer/<page>.html`, regression tests in `desktop/tests/`). `scripts/dual-spec.md` is the reviewed specification for this stream. Each target's Codex edits only its own root; shared files and frozen prototypes stay unchanged.
