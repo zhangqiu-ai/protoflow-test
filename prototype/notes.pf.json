@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "screen": "notes",
+  "states": {
+    "expanded": {
+      "steps": [
+        {
+          "action": "tap",
+          "anchor": "notes.toggle"
+        }
+      ],
+      "expect": {
+        "visible": [
+          "notes.details"
+        ]
+      }
+    }
+  }
+}
