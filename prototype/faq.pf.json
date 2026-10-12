@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "screen": "faq",
+  "states": {
+    "answered": {
+      "steps": [
+        {
+          "action": "tap",
+          "anchor": "faq.toggle"
+        }
+      ],
+      "expect": {
+        "visible": [
+          "faq.answer"
+        ]
+      }
+    }
+  }
+}
