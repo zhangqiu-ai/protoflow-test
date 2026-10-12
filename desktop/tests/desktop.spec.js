@@ -6,7 +6,7 @@ import path from 'node:path';
 import {pathToFileURL} from 'node:url';
 
 // Regression suite for the Electron target: launches the real desktop application (desktop/main.cjs) with a private
-// profile and drives its screens. Frozen baseline: git-76b9a0af9924b7c9f471bda56486030cfa146fe1.
+// profile and drives its screens. FAQ coverage corresponds to git-5220d95113dfc4f065052d10b2310a7c39dfb5e1.
 const executablePath = createRequire(import.meta.url)('electron');
 const main = path.resolve('desktop/main.cjs');
 const screen = name => pathToFileURL(path.resolve(`desktop/renderer/${name}.html`)).href;
@@ -16,12 +16,12 @@ const reply = 'Thanks for your message. This is a fixed local demo reply.';
 let app, window, profile, pageErrors, network;
 
 test.beforeEach(async () => {
+  pageErrors = []; network = [];
   profile = await mkdtemp(path.join(tmpdir(), 'protoflow-desktop-test-'));
   const env = {...process.env, DESKTOP_USER_DATA: profile};
   delete env.ELECTRON_RUN_AS_NODE;
   app = await electron.launch({executablePath, args: [main], env});
   window = await app.firstWindow();
-  pageErrors = []; network = [];
   window.on('pageerror', error => pageErrors.push(error.message));
   window.on('request', request => { if (/^https?:/.test(request.url())) network.push(request.url()); });
   await window.waitForLoadState('load');
@@ -95,6 +95,26 @@ test('the help screen matches the current version title and indigo tip tokens', 
   await expect(window.getByTestId('help.tip').first()).toHaveCSS('border-left-color', 'rgb(59, 91, 219)');
   await expect(window.getByTestId('help.tip').first()).toHaveCSS('background-color', 'rgb(242, 244, 253)');
   await expect(window.getByTestId('help.tip').locator('strong').first()).toHaveCSS('color', 'rgb(44, 63, 168)');
+});
+
+test('the common questions screen exposes every FAQ anchor and expands its answer', async () => {
+  await open('faq');
+  await expect(window).toHaveTitle('ProtoFlow — Questions');
+  for (const id of ['faq', 'faq.header', 'faq.back', 'faq.panel', 'faq.title', 'faq.lead', 'faq.item', 'faq.toggle', 'faq.answer', 'faq.footer']) {
+    await expect(window.getByTestId(id)).toHaveCount(1);
+  }
+  await expect(window.getByTestId('faq.title')).toHaveText('Common questions');
+  await expect(window.getByTestId('faq.lead')).toHaveText('Short answers about how prototype versions reach both apps.');
+  await expect(window.getByTestId('faq.toggle')).toHaveText('Who approves a version before it ships?');
+  await expect(window.getByTestId('faq.answer')).toBeHidden();
+  await expect(window.getByTestId('faq.panel')).toHaveCSS('border-radius', '20px');
+  await expect(window.getByTestId('faq.item')).toHaveCSS('background-color', 'rgb(242, 244, 253)');
+  await expect(window.getByTestId('faq.toggle')).toHaveCSS('color', 'rgb(44, 63, 168)');
+  await window.getByTestId('faq.toggle').click();
+  await expect(window.getByTestId('faq.answer')).toBeVisible();
+  await expect(window.getByTestId('faq.answer')).toHaveText('An independent reviewer checks every version on each platform before it is merged.');
+  await window.getByTestId('faq.back').click();
+  await expect(window.getByTestId('help')).toBeVisible();
 });
 
 test('links connect sign-in, conversation and help inside the desktop window', async () => {
