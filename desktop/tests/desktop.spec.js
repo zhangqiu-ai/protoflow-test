@@ -86,12 +86,15 @@ test('the conversation rejects empty messages, replies and restarts', async () =
   await expect(window.getByTestId('chat.status')).toHaveText('Conversation cleared.');
 });
 
-test('the help screen lists the tips in prototype order', async () => {
+test('the help screen matches the current version title and indigo tip tokens', async () => {
   await open('help');
-  await expect(window.getByTestId('help.title')).toHaveText('How this demo works');
+  await expect(window.getByTestId('help.title')).toHaveText('Three rules for every version');
   await expect(window.getByTestId('help.tip')).toHaveCount(3);
   await expect(window.getByTestId('help.tip').locator('strong')).toHaveText(['Prototype first', 'One version at a time', 'Checked by anchors']);
   await expect(window.getByTestId('help.footer')).toHaveText('Prototype-driven development');
+  await expect(window.getByTestId('help.tip').first()).toHaveCSS('border-left-color', 'rgb(59, 91, 219)');
+  await expect(window.getByTestId('help.tip').first()).toHaveCSS('background-color', 'rgb(242, 244, 253)');
+  await expect(window.getByTestId('help.tip').locator('strong').first()).toHaveCSS('color', 'rgb(44, 63, 168)');
 });
 
 test('links connect sign-in, conversation and help inside the desktop window', async () => {
