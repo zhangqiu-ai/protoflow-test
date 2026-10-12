@@ -161,7 +161,7 @@
   "source": {
     "kind": "git",
     "repository": "https://github.com/zhangqiu-ai/protoflow-test.git",
-    "branch": "protoflow-dual-20261011",
+    "branch": "protoflow-dual-20261012",
     "path": "prototype",
     "startSha": "76b9a0af9924b7c9f471bda56486030cfa146fe1"
   },
@@ -176,8 +176,8 @@
     "spec": "scripts/dual-spec.md",
     "delivery": {
       "remote": "origin",
-      "branch": "protoflow/dual-delivery",
-      "baseBranch": "dual-acceptance",
+      "branch": "protoflow/dual2-delivery",
+      "baseBranch": "dual-acceptance-v2",
       "merge": "auto"
     }
   }

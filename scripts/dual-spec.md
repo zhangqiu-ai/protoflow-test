@@ -1,6 +1,6 @@
 # Dual-platform acceptance specification (Web + Electron)
 
-Reviewed operator specification for the `protoflow-dual-20261011` prototype stream. It applies to every version of the stream on both targets.
+Reviewed operator specification for the `protoflow-dual-20261011` and `protoflow-dual-20261012` prototype streams. It applies to every version of the stream on both targets.
 
 - The prototype is the design input. Each prototype page is one screen (`<body data-pf="<screen>">`); every `data-pf` anchor must exist in the application with the identical ID as `data-testid` on the implementing element, with the same text, order, visibility and styling. States in `<page>.pf.json` sidecars must be reachable with the listed steps.
 - Web target (`app/`): one HTML page per screen; `scripts/build.mjs` publishes every file under `app/` (except `app/tests/`) to `.protoflow/site/<page>.html`. Regression tests live in `app/tests/`.
