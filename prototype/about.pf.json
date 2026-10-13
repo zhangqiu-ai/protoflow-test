@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "screen": "about",
+  "states": {
+    "details": {
+      "steps": [{ "action": "tap", "anchor": "about.more" }],
+      "expect": { "visible": ["about.details"] }
+    }
+  }
+}
