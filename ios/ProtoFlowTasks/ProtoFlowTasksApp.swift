@@ -10,7 +10,7 @@ extension Color {
     init(hex: UInt32) {
         self.init(red: Double(hex >> 16 & 0xff) / 255, green: Double(hex >> 8 & 0xff) / 255, blue: Double(hex & 0xff) / 255)
     }
-    static let accent = Color(hex: 0x0d766e)
+    static let accent = Color(hex: 0x4f46e5)
     static let ink = Color(hex: 0x18323c)
     static let canvas = Color(hex: 0xf2f5f7)
     static let border = Color(hex: 0xd9e2e5)
