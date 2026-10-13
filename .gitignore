@@ -1,0 +1,16 @@
+.protoflow/
+ios/build/
+react-native/node_modules/
+react-native/ios/Pods/
+react-native/ios/build/
+react-native/vendor/
+react-native/.bundle/
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+flutter/build/
+flutter/.dart_tool/
+flutter/android/local.properties
+flutter/ios/Flutter/Generated.xcconfig
+.protoflow/

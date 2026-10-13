@@ -1,0 +1,282 @@
+{
+  "schemaVersion": 2,
+  "prototypeDir": "prototype",
+  "anchors": {
+    "attribute": "data-pf",
+    "requireScreenAnchor": true,
+    "tokens": "prototype/tokens.json"
+  },
+  "source": {
+    "kind": "git",
+    "repository": "https://github.com/zhangqiu-ai/protoflow-test.git",
+    "branch": "protoflow-mobile-20261013",
+    "path": "prototype",
+    "startSha": "300af144d7d7c642c35e87d07bb7a9c6a1d53e5e"
+  },
+  "runner": {
+    "pollMs": 15000,
+    "spec": "scripts/mobile-spec.md",
+    "delivery": {
+      "remote": "origin",
+      "branch": "protoflow/mobile-delivery",
+      "baseBranch": "mobile-acceptance",
+      "merge": "auto"
+    }
+  },
+  "policy": {
+    "maxRepairAttempts": 2,
+    "requireHumanReview": true,
+    "sequentialVersions": true,
+    "autoApprove": true
+  },
+  "adapters": {
+    "codex": {
+      "command": {
+        "argv": [
+          "/Users/feature/.local/bin/node",
+          "/Users/feature/code/protoflow/scripts/codex-adapter.js",
+          "--model",
+          "gpt-5.6-terra",
+          "--ephemeral"
+        ],
+        "timeoutMs": 1800000
+      }
+    },
+    "independentReview": {
+      "command": {
+        "argv": [
+          "/Users/feature/.local/bin/node",
+          "/Users/feature/code/protoflow/scripts/codex-review-adapter.js",
+          "--model",
+          "gpt-5.6-terra"
+        ],
+        "timeoutMs": 900000
+      }
+    }
+  },
+  "targets": [
+    {
+      "id": "ios",
+      "platform": "ios",
+      "root": "ios",
+      "driver": {
+        "kind": "external",
+        "command": {
+          "argv": [
+            "node",
+            "/Users/feature/code/protoflow/scripts/ios-driver.js",
+            "--bundle-id",
+            "dev.protoflow.examples.tasks",
+            "--device",
+            "ProtoFlow iPhone 17",
+            "--app",
+            "ios/build/DerivedData/Build/Products/Debug-iphonesimulator/ProtoFlowTasks.app",
+            "--cache",
+            "/Users/feature/code/protoflow-acceptance/cache/ios-driver"
+          ],
+          "timeoutMs": 900000
+        }
+      },
+      "build": {
+        "argv": [
+          "xcodebuild",
+          "build",
+          "-project",
+          "ios/ProtoFlowTasks.xcodeproj",
+          "-scheme",
+          "ProtoFlowTasks",
+          "-configuration",
+          "Debug",
+          "-destination",
+          "generic/platform=iOS Simulator",
+          "-derivedDataPath",
+          "ios/build/DerivedData",
+          "CODE_SIGNING_ALLOWED=NO",
+          "-quiet"
+        ],
+        "timeoutMs": 1800000
+      },
+      "functional": {
+        "argv": [
+          "xcodebuild",
+          "test",
+          "-project",
+          "ios/ProtoFlowTasks.xcodeproj",
+          "-scheme",
+          "ProtoFlowTasks",
+          "-destination",
+          "platform=iOS Simulator,name=ProtoFlow iPhone 17",
+          "-derivedDataPath",
+          "ios/build/DerivedData",
+          "CODE_SIGNING_ALLOWED=NO",
+          "-quiet"
+        ],
+        "timeoutMs": 1800000
+      },
+      "viewport": {
+        "width": 402,
+        "height": 778,
+        "scale": 3
+      }
+    },
+    {
+      "id": "android",
+      "platform": "android",
+      "root": "android",
+      "driver": {
+        "kind": "external",
+        "command": {
+          "argv": [
+            "node",
+            "/Users/feature/code/protoflow/scripts/android-driver.js",
+            "--package",
+            "dev.protoflow.examples.tasks",
+            "--avd",
+            "ProtoFlow_Pixel",
+            "--apk",
+            "android/app/build/outputs/apk/debug/app-debug.apk",
+            "--cache",
+            "/Users/feature/code/protoflow-acceptance/cache/android-driver"
+          ],
+          "timeoutMs": 900000
+        }
+      },
+      "build": {
+        "argv": [
+          "android/gradlew",
+          "-p",
+          "android",
+          "--no-daemon",
+          "-q",
+          "assembleDebug"
+        ],
+        "timeoutMs": 1800000
+      },
+      "functional": {
+        "argv": [
+          "android/gradlew",
+          "-p",
+          "android",
+          "--no-daemon",
+          "-q",
+          "testDebugUnitTest"
+        ],
+        "timeoutMs": 1800000
+      },
+      "viewport": {
+        "width": 360,
+        "height": 730,
+        "scale": 3
+      },
+      "deviations": [
+        {
+          "anchor": "settings.notify-toggle",
+          "allow": [
+            "layout"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "flutter",
+      "platform": "flutter",
+      "root": "flutter",
+      "functional": {
+        "argv": [
+          "flutter/tool/flutterw",
+          "test"
+        ],
+        "timeoutMs": 1800000
+      },
+      "deviations": [
+        {
+          "anchor": "settings.notify-toggle",
+          "allow": [
+            "layout"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "id": "ios",
+          "driver": {
+            "kind": "external",
+            "command": {
+              "argv": [
+                "node",
+                "/Users/feature/code/protoflow/scripts/ios-driver.js",
+                "--bundle-id",
+                "dev.protoflow.examples.protoflowTasks",
+                "--device",
+                "ProtoFlow iPhone 17",
+                "--app",
+                "flutter/build/ios/iphonesimulator/Runner.app",
+                "--cache",
+                "/Users/feature/code/protoflow-acceptance/cache/ios-driver"
+              ],
+              "timeoutMs": 900000
+            }
+          },
+          "build": {
+            "argv": [
+              "flutter/tool/flutterw",
+              "build",
+              "ios",
+              "--simulator",
+              "--debug"
+            ],
+            "timeoutMs": 3600000
+          },
+          "viewport": {
+            "width": 402,
+            "height": 778,
+            "scale": 3
+          }
+        },
+        {
+          "id": "android",
+          "driver": {
+            "kind": "external",
+            "command": {
+              "argv": [
+                "node",
+                "/Users/feature/code/protoflow/scripts/android-driver.js",
+                "--package",
+                "dev.protoflow.examples.protoflow_tasks",
+                "--avd",
+                "ProtoFlow_Pixel",
+                "--apk",
+                "flutter/build/app/outputs/flutter-apk/app-release.apk",
+                "--cache",
+                "/Users/feature/code/protoflow-acceptance/cache/android-driver"
+              ],
+              "timeoutMs": 900000
+            }
+          },
+          "build": {
+            "argv": [
+              "flutter/tool/flutterw",
+              "build",
+              "apk",
+              "--release",
+              "--no-tree-shake-icons"
+            ],
+            "timeoutMs": 3600000
+          },
+          "viewport": {
+            "width": 360,
+            "height": 730,
+            "scale": 3
+          }
+        }
+      ]
+    }
+  ],
+  "release": {
+    "requireTargets": [
+      "ios",
+      "android",
+      "flutter"
+    ]
+  }
+}
