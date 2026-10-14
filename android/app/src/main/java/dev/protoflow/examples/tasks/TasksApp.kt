@@ -38,12 +38,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-private val Accent = Color(0xFF0D766E)
+private val Accent = Color(0xFF4F46E5)
 private val Ink = Color(0xFF18323C)
 private val Canvas = Color(0xFFF2F5F7)
 private val Border = Color(0xFFD9E2E5)
 private val Danger = Color(0xFFAD3F3C)
 private val Placeholder = Color(0xFFA3AEB3)
+private val ToggleTrack = Color(0xFFE9E9EB)
 
 @Composable
 fun TasksApp(initial: String) {
@@ -95,7 +96,7 @@ fun TasksScreen(open: (String) -> Unit) {
         if (text.isEmpty()) showError = true else { showError = false; items.add(text); draft = "" }
     }
     ScreenRoot("tasks") {
-        Header("tasks", "Today", "Settings") { open("settings") }
+        Header("tasks", "My day", "Settings") { open("settings") }
         Column(Modifier.fillMaxWidth().testTag("tasks.list"), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             items.forEach { item ->
                 Box(Modifier.fillMaxWidth().height(48.dp).background(Color.White, RoundedCornerShape(12.dp)).testTag("tasks.item").padding(horizontal = 16.dp), contentAlignment = Alignment.CenterStart) {
@@ -134,7 +135,19 @@ fun SettingsScreen(open: (String) -> Unit) {
         ) {
             Text("Daily reminder", fontSize = 17.sp, color = Ink)
             Spacer(Modifier.weight(1f))
-            Switch(checked = notify, onCheckedChange = { notify = it }, modifier = Modifier.testTag("settings.notify-toggle"), colors = SwitchDefaults.colors(checkedTrackColor = Accent))
+            Switch(
+                checked = notify,
+                onCheckedChange = { notify = it },
+                modifier = Modifier.testTag("settings.notify-toggle"),
+                colors = SwitchDefaults.colors(
+                    checkedThumbColor = Color.White,
+                    checkedTrackColor = Accent,
+                    checkedBorderColor = Accent,
+                    uncheckedThumbColor = Color.White,
+                    uncheckedTrackColor = ToggleTrack,
+                    uncheckedBorderColor = ToggleTrack
+                )
+            )
         }
         Spacer(Modifier.height(16.dp))
         PrimaryButton("settings.save", "Save", Modifier.fillMaxWidth()) { saved = true }
