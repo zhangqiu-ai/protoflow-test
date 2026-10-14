@@ -43,6 +43,7 @@ private val Ink = Color(0xFF18323C)
 private val Canvas = Color(0xFFF2F5F7)
 private val Border = Color(0xFFD9E2E5)
 private val Danger = Color(0xFFAD3F3C)
+private val Muted = Color(0xFF5B6B73)
 private val Placeholder = Color(0xFFA3AEB3)
 private val ToggleTrack = Color(0xFFE9E9EB)
 
@@ -98,6 +99,13 @@ fun TasksScreen(open: (String) -> Unit) {
     }
     ScreenRoot("tasks") {
         Header("tasks", "My day", "Settings") { open("settings") }
+        Text(
+            "${items.size} tasks",
+            Modifier.testTag("tasks.count"),
+            fontSize = 15.sp,
+            color = Muted
+        )
+        Spacer(Modifier.height(12.dp))
         Column(Modifier.fillMaxWidth().testTag("tasks.list"), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             items.forEach { item ->
                 Box(Modifier.fillMaxWidth().height(48.dp).background(Color.White, RoundedCornerShape(12.dp)).testTag("tasks.item").padding(horizontal = 16.dp), contentAlignment = Alignment.CenterStart) {
