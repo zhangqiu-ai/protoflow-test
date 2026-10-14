@@ -39,4 +39,23 @@ final class ProtoFlowTasksUITests: XCTestCase {
         app.buttons["settings.back"].tap()
         XCTAssertTrue(app.staticTexts["tasks.title"].waitForExistence(timeout: 5))
     }
+
+    func testAboutDetailsAndNavigation() {
+        let app = launch("about")
+        XCTAssertTrue(app.otherElements["about"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.otherElements["about.header"].waitForExistence(timeout: 5))
+        XCTAssertEqual(app.staticTexts["about.title"].label, "About")
+        XCTAssertEqual(app.buttons["about.back"].label, "Back")
+        XCTAssertEqual(app.staticTexts["about.summary"].label, "Tasks keeps today's work in one list.")
+        XCTAssertEqual(app.buttons["about.more"].label, "Show details")
+        XCTAssertFalse(app.staticTexts["about.details"].exists)
+
+        app.buttons["about.more"].tap()
+        let details = app.staticTexts["about.details"]
+        XCTAssertTrue(details.waitForExistence(timeout: 5))
+        XCTAssertEqual(details.label, "Built from a ProtoFlow prototype.")
+
+        app.buttons["about.back"].tap()
+        XCTAssertTrue(app.staticTexts["tasks.title"].waitForExistence(timeout: 5))
+    }
 }
