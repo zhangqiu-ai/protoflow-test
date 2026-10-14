@@ -15,11 +15,14 @@ void main() {
   testWidgets('adding a task appends it and clears the field', (tester) async {
     await tester.pumpWidget(const TasksApp(initial: 'tasks'));
     expect(accent, const Color(0xFF4F46E5));
+    expect(muted, const Color(0xFF5B6B73));
     expect(byAnchor('tasks'), findsOneWidget);
     expect(byAnchor('tasks.header'), findsOneWidget);
     expect(byAnchor('tasks.title'), findsOneWidget);
     expect(byAnchor('tasks.settings'), findsOneWidget);
     expect(find.text('My day'), findsOneWidget);
+    expect(byAnchor('tasks.count'), findsOneWidget);
+    expect(find.text('2 tasks'), findsOneWidget);
     expect(byAnchor('tasks.list'), findsOneWidget);
     expect(byAnchor('tasks.item'), findsNWidgets(2));
     expect(byAnchor('tasks.form'), findsOneWidget);
@@ -29,6 +32,7 @@ void main() {
     await tester.tap(find.text('Add'));
     await tester.pump();
     expect(find.text('Write tests'), findsOneWidget);
+    expect(find.text('3 tasks'), findsOneWidget);
     expect(find.text('Enter a task first.'), findsNothing);
   });
 
