@@ -6,7 +6,7 @@ import 'package:flutter/semantics.dart';
 /// and returns it over this channel; the app opens that screen directly.
 const _launch = MethodChannel('dev.protoflow/launch');
 
-const accent = Color(0xFF0D766E);
+const accent = Color(0xFF4F46E5);
 const ink = Color(0xFF18323C);
 const canvas = Color(0xFFF2F5F7);
 const border = Color(0xFFD9E2E5);
@@ -131,7 +131,7 @@ class _TasksScreenState extends State<TasksScreen> {
 
   @override
   Widget build(BuildContext context) => ScreenRoot(id: 'tasks', children: [
-        Header(prefix: 'tasks', title: 'Today', action: 'Settings', onAction: () => widget.open('settings')),
+        Header(prefix: 'tasks', title: 'My day', action: 'Settings', onAction: () => widget.open('settings')),
         anchor('tasks.list', Column(children: [
           for (final item in items)
             Padding(
