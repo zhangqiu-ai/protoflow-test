@@ -11,6 +11,7 @@ android/app/build/
 android/local.properties
 flutter/build/
 flutter/.dart_tool/
+flutter/.gradle-user-home-verified/
 flutter/android/local.properties
 flutter/ios/Flutter/Generated.xcconfig
 .protoflow/
