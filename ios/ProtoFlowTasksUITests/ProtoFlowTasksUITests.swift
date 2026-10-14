@@ -11,6 +11,9 @@ final class ProtoFlowTasksUITests: XCTestCase {
 
     func testAddingATaskAppendsItAndClearsTheField() {
         let app = launch("tasks")
+        let title = app.staticTexts["tasks.title"]
+        XCTAssertTrue(title.waitForExistence(timeout: 5))
+        XCTAssertEqual(title.label, "My day")
         let input = app.textFields["tasks.input"]
         input.tap()
         input.typeText("Write tests")

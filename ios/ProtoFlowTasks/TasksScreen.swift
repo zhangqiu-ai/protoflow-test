@@ -9,7 +9,7 @@ struct TasksScreen: View {
 
     var body: some View {
         ScreenRoot(id: "tasks") {
-            Header(prefix: "tasks", title: "Today", action: "Settings") { open("settings") }
+            Header(prefix: "tasks", title: "My day", action: "Settings") { open("settings") }
             VStack(spacing: 8) {
                 ForEach(Array(items.enumerated()), id: \.offset) { _, item in
                     Text(item)
