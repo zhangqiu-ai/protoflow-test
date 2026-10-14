@@ -37,7 +37,12 @@
           "/Users/feature/code/protoflow/scripts/codex-adapter.js",
           "--model",
           "gpt-5.6-terra",
-          "--ephemeral"
+          "--ephemeral",
+          "--add-dir",
+          "/Users/feature/development/flutter",
+          "--add-dir",
+          "/Users/feature/.dart-tool",
+          "--network"
         ],
         "timeoutMs": 1800000
       }

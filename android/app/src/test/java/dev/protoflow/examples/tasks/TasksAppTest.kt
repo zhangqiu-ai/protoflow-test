@@ -51,10 +51,20 @@ class TasksAppTest {
 
     @Test fun settingsSaveAndNavigation() {
         compose.setContent { TasksApp("settings") }
+
+        compose.onNodeWithTag("settings").assertIsDisplayed()
+        compose.onNodeWithTag("settings.header").assertIsDisplayed()
+        compose.onNodeWithTag("settings.title").assertTextEquals("Settings")
+        compose.onNodeWithTag("settings.back").assertTextEquals("Back")
+        compose.onNodeWithTag("settings.notify").assertIsDisplayed()
+        compose.onNodeWithText("Daily reminder").assertIsDisplayed()
+        compose.onNodeWithTag("settings.notify-toggle").assertIsDisplayed()
+        compose.onNodeWithTag("settings.save").assertTextEquals("Save")
         compose.onNodeWithTag("settings.notify-toggle").performClick()
         compose.onNodeWithTag("settings.save").performClick()
         compose.onNodeWithTag("settings.saved").assertIsDisplayed()
+        compose.onNodeWithTag("settings.saved").assertTextEquals("Saved.")
         compose.onNodeWithTag("settings.back").performClick()
-        compose.onNodeWithTag("tasks.title").assertIsDisplayed()
+        compose.onNodeWithTag("tasks.title").assertTextEquals("My day")
     }
 }
