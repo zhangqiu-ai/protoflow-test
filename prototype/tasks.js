@@ -8,6 +8,8 @@ document.getElementById('form').addEventListener('submit', event => {
   item.setAttribute('data-pf', 'tasks.item');
   item.setAttribute('data-pf-repeat', '');
   item.textContent = input.value.trim();
-  document.getElementById('list').append(item);
+  const list = document.getElementById('list');
+  list.append(item);
+  document.getElementById('count').textContent = `${list.children.length} tasks`;
   input.value = '';
 });
