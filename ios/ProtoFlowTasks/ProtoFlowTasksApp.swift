@@ -15,6 +15,7 @@ extension Color {
     static let canvas = Color(hex: 0xf2f5f7)
     static let border = Color(hex: 0xd9e2e5)
     static let danger = Color(hex: 0xad3f3c)
+    static let muted = Color(hex: 0x5b6b73)
     static let track = Color(hex: 0xe9e9eb)
 }
 

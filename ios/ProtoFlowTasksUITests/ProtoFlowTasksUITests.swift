@@ -14,12 +14,20 @@ final class ProtoFlowTasksUITests: XCTestCase {
         let title = app.staticTexts["tasks.title"]
         XCTAssertTrue(title.waitForExistence(timeout: 5))
         XCTAssertEqual(title.label, "My day")
+        let count = app.staticTexts["tasks.count"]
+        XCTAssertTrue(count.exists)
+        XCTAssertEqual(count.label, "2 tasks")
         let input = app.textFields["tasks.input"]
         input.tap()
         input.typeText("Write tests")
         app.buttons["tasks.add"].tap()
         XCTAssertEqual(app.staticTexts.matching(identifier: "tasks.item").count, 3)
         XCTAssertTrue(app.staticTexts["Write tests"].exists)
+        let countUpdate = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "label == %@", "3 tasks"),
+            object: count
+        )
+        XCTAssertEqual(XCTWaiter.wait(for: [countUpdate], timeout: 5), .completed)
         XCTAssertFalse(app.staticTexts["tasks.error"].exists)
         XCTAssertFalse(app.keyboards.firstMatch.exists)
     }
