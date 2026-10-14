@@ -70,15 +70,41 @@ void main() {
     expect(byAnchor('settings.saved'), findsOneWidget);
   });
 
-  testWidgets('screen and region anchors are explicit semantics containers',
-      (tester) async {
-    await tester.pumpWidget(const TasksApp(initial: 'tasks'));
+  testWidgets('about opens directly, exposes its anchors, and shows details', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      const TasksApp(key: ValueKey('about-containers'), initial: 'about'),
+    );
     for (final id in [
-      'tasks',
-      'tasks.header',
-      'tasks.list',
-      'tasks.form',
+      'about',
+      'about.header',
+      'about.title',
+      'about.back',
+      'about.summary',
+      'about.more',
     ]) {
+      expect(byAnchor(id), findsOneWidget);
+    }
+    expect(find.text('About'), findsOneWidget);
+    expect(find.text('Tasks keeps today\'s work in one list.'), findsOneWidget);
+    expect(byAnchor('about.details'), findsNothing);
+
+    await tester.tap(find.text('Show details'));
+    await tester.pump();
+    expect(byAnchor('about.details'), findsOneWidget);
+    expect(find.text('Built from a ProtoFlow prototype.'), findsOneWidget);
+
+    await tester.tap(find.text('Back'));
+    await tester.pump();
+    expect(byAnchor('tasks'), findsOneWidget);
+  });
+
+  testWidgets('screen and region anchors are explicit semantics containers', (
+    tester,
+  ) async {
+    await tester.pumpWidget(const TasksApp(initial: 'tasks'));
+    for (final id in ['tasks', 'tasks.header', 'tasks.list', 'tasks.form']) {
       final semantics = semanticsFor(tester, id);
       expect(semantics.container, isTrue, reason: id);
       expect(semantics.explicitChildNodes, isTrue, reason: id);
@@ -87,6 +113,15 @@ void main() {
     await tester.tap(find.text('Settings'));
     await tester.pump();
     for (final id in ['settings', 'settings.header', 'settings.notify']) {
+      final semantics = semanticsFor(tester, id);
+      expect(semantics.container, isTrue, reason: id);
+      expect(semantics.explicitChildNodes, isTrue, reason: id);
+    }
+
+    await tester.pumpWidget(
+      const TasksApp(key: ValueKey('about-containers'), initial: 'about'),
+    );
+    for (final id in ['about', 'about.header']) {
       final semantics = semanticsFor(tester, id);
       expect(semantics.container, isTrue, reason: id);
       expect(semantics.explicitChildNodes, isTrue, reason: id);
