@@ -11,6 +11,7 @@ const ink = Color(0xFF18323C);
 const canvas = Color(0xFFF2F5F7);
 const border = Color(0xFFD9E2E5);
 const danger = Color(0xFFAD3F3C);
+const muted = Color(0xFF5B6B73);
 const placeholder = Color(0xFFA3AEB3);
 
 Future<void> main() async {
@@ -216,6 +217,17 @@ class _TasksScreenState extends State<TasksScreen> {
         title: 'My day',
         action: 'Settings',
         onAction: () => widget.open('settings'),
+      ),
+      Padding(
+        padding: const EdgeInsets.only(bottom: 12),
+        child: anchor(
+          'tasks.count',
+          Text(
+            '${items.length} tasks',
+            style: const TextStyle(fontSize: 15, color: muted),
+          ),
+          container: false,
+        ),
       ),
       anchor(
         'tasks.list',

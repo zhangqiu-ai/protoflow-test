@@ -35,6 +35,7 @@ struct RootView: View {
         ZStack {
             Color.canvas.ignoresSafeArea()
             switch screen {
+            case "about": AboutScreen(open: { screen = $0 })
             case "settings": SettingsScreen(open: { screen = $0 })
             default: TasksScreen(open: { screen = $0 })
             }
