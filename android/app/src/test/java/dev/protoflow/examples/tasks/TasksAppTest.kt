@@ -26,6 +26,7 @@ class TasksAppTest {
         compose.onNodeWithTag("tasks.header").assertIsDisplayed()
         compose.onNodeWithTag("tasks.title").assertTextEquals("My day")
         compose.onNodeWithTag("tasks.settings").assertIsDisplayed()
+        compose.onNodeWithTag("tasks.count").assertTextEquals("2 tasks")
         compose.onNodeWithTag("tasks.list").assertIsDisplayed()
         compose.onAllNodesWithTag("tasks.item").assertCountEquals(2)
         compose.onNodeWithTag("tasks.form").assertIsDisplayed()
@@ -38,6 +39,7 @@ class TasksAppTest {
         compose.onNodeWithTag("tasks.input").performTextInput("Write tests")
         compose.onNodeWithTag("tasks.add").performClick()
         compose.onAllNodesWithTag("tasks.item").assertCountEquals(3)
+        compose.onNodeWithTag("tasks.count").assertTextEquals("3 tasks")
         compose.onNodeWithText("Write tests").assertIsDisplayed()
         compose.onAllNodesWithTag("tasks.error").assertCountEquals(0)
     }
