@@ -38,7 +38,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-private val Accent = Color(0xFF0D766E)
+private val Accent = Color(0xFF4F46E5)
 private val Ink = Color(0xFF18323C)
 private val Canvas = Color(0xFFF2F5F7)
 private val Border = Color(0xFFD9E2E5)
@@ -95,7 +95,7 @@ fun TasksScreen(open: (String) -> Unit) {
         if (text.isEmpty()) showError = true else { showError = false; items.add(text); draft = "" }
     }
     ScreenRoot("tasks") {
-        Header("tasks", "Today", "Settings") { open("settings") }
+        Header("tasks", "My day", "Settings") { open("settings") }
         Column(Modifier.fillMaxWidth().testTag("tasks.list"), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             items.forEach { item ->
                 Box(Modifier.fillMaxWidth().height(48.dp).background(Color.White, RoundedCornerShape(12.dp)).testTag("tasks.item").padding(horizontal = 16.dp), contentAlignment = Alignment.CenterStart) {

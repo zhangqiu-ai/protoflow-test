@@ -2,6 +2,7 @@ package dev.protoflow.examples.tasks
 
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithTag
@@ -17,6 +18,20 @@ import org.robolectric.RobolectricTestRunner
 @RunWith(RobolectricTestRunner::class)
 class TasksAppTest {
     @get:Rule val compose = createComposeRule()
+
+    @Test fun tasksScreenUsesTheFrozenTitleAndAnchors() {
+        compose.setContent { TasksApp("tasks") }
+
+        compose.onNodeWithTag("tasks").assertIsDisplayed()
+        compose.onNodeWithTag("tasks.header").assertIsDisplayed()
+        compose.onNodeWithTag("tasks.title").assertTextEquals("My day")
+        compose.onNodeWithTag("tasks.settings").assertIsDisplayed()
+        compose.onNodeWithTag("tasks.list").assertIsDisplayed()
+        compose.onAllNodesWithTag("tasks.item").assertCountEquals(2)
+        compose.onNodeWithTag("tasks.form").assertIsDisplayed()
+        compose.onNodeWithTag("tasks.input").assertIsDisplayed()
+        compose.onNodeWithTag("tasks.add").assertIsDisplayed()
+    }
 
     @Test fun addingATaskAppendsIt() {
         compose.setContent { TasksApp("tasks") }
