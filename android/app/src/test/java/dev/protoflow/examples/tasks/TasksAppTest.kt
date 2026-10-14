@@ -67,4 +67,24 @@ class TasksAppTest {
         compose.onNodeWithTag("settings.back").performClick()
         compose.onNodeWithTag("tasks.title").assertTextEquals("My day")
     }
+
+    @Test fun aboutScreenShowsDetailsAndNavigatesBack() {
+        compose.setContent { TasksApp("about") }
+
+        compose.onNodeWithTag("about").assertIsDisplayed()
+        compose.onNodeWithTag("about.header").assertIsDisplayed()
+        compose.onNodeWithTag("about.title").assertTextEquals("About")
+        compose.onNodeWithTag("about.back").assertTextEquals("Back")
+        compose.onNodeWithTag("about.summary").assertIsDisplayed()
+        compose.onNodeWithText("Tasks keeps today's work in one list.").assertIsDisplayed()
+        compose.onNodeWithTag("about.more").assertTextEquals("Show details")
+        compose.onAllNodesWithTag("about.details").assertCountEquals(0)
+
+        compose.onNodeWithTag("about.more").performClick()
+        compose.onNodeWithTag("about.details").assertIsDisplayed()
+        compose.onNodeWithTag("about.details").assertTextEquals("Built from a ProtoFlow prototype.")
+
+        compose.onNodeWithTag("about.back").performClick()
+        compose.onNodeWithTag("tasks.title").assertTextEquals("My day")
+    }
 }

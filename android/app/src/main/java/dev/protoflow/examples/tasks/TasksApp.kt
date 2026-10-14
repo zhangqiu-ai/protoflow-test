@@ -52,6 +52,7 @@ fun TasksApp(initial: String) {
     Box(Modifier.fillMaxSize().background(Canvas).safeDrawingPadding()) {
         when (screen) {
             "settings" -> SettingsScreen { screen = it }
+            "about" -> AboutScreen { screen = it }
             else -> TasksScreen { screen = it }
         }
     }
@@ -152,5 +153,29 @@ fun SettingsScreen(open: (String) -> Unit) {
         Spacer(Modifier.height(16.dp))
         PrimaryButton("settings.save", "Save", Modifier.fillMaxWidth()) { saved = true }
         if (saved) Text("Saved.", Modifier.padding(top = 12.dp).testTag("settings.saved"), fontSize = 15.sp, color = Accent)
+    }
+}
+
+@Composable
+fun AboutScreen(open: (String) -> Unit) {
+    var showDetails by remember { mutableStateOf(false) }
+    ScreenRoot("about") {
+        Header("about", "About", "Back") { open("tasks") }
+        Box(
+            Modifier.fillMaxWidth().height(52.dp).background(Color.White, RoundedCornerShape(12.dp)).testTag("about.summary").padding(horizontal = 16.dp),
+            contentAlignment = Alignment.CenterStart
+        ) {
+            Text("Tasks keeps today's work in one list.", fontSize = 17.sp, color = Ink)
+        }
+        Spacer(Modifier.height(16.dp))
+        PrimaryButton("about.more", "Show details", Modifier.fillMaxWidth()) { showDetails = true }
+        if (showDetails) {
+            Text(
+                "Built from a ProtoFlow prototype.",
+                Modifier.padding(top = 12.dp).testTag("about.details"),
+                fontSize = 15.sp,
+                color = Accent
+            )
+        }
     }
 }
