@@ -44,6 +44,7 @@ private val Canvas = Color(0xFFF2F5F7)
 private val Border = Color(0xFFD9E2E5)
 private val Danger = Color(0xFFAD3F3C)
 private val Placeholder = Color(0xFFA3AEB3)
+private val ToggleTrack = Color(0xFFE9E9EB)
 
 @Composable
 fun TasksApp(initial: String) {
@@ -134,7 +135,19 @@ fun SettingsScreen(open: (String) -> Unit) {
         ) {
             Text("Daily reminder", fontSize = 17.sp, color = Ink)
             Spacer(Modifier.weight(1f))
-            Switch(checked = notify, onCheckedChange = { notify = it }, modifier = Modifier.testTag("settings.notify-toggle"), colors = SwitchDefaults.colors(checkedTrackColor = Accent))
+            Switch(
+                checked = notify,
+                onCheckedChange = { notify = it },
+                modifier = Modifier.testTag("settings.notify-toggle"),
+                colors = SwitchDefaults.colors(
+                    checkedThumbColor = Color.White,
+                    checkedTrackColor = Accent,
+                    checkedBorderColor = Accent,
+                    uncheckedThumbColor = Color.White,
+                    uncheckedTrackColor = ToggleTrack,
+                    uncheckedBorderColor = ToggleTrack
+                )
+            )
         }
         Spacer(Modifier.height(16.dp))
         PrimaryButton("settings.save", "Save", Modifier.fillMaxWidth()) { saved = true }
