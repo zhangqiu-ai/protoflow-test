@@ -323,7 +323,41 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  bool notify = false, saved = false;
+  bool notify = false, weekly = true, saved = false;
+
+  Widget _toggleRow(
+    String rowId,
+    String label,
+    String toggleId,
+    bool value,
+    ValueChanged<bool> onChanged,
+  ) => anchor(
+    rowId,
+    Container(
+      height: 52,
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(
+        children: [
+          Text(label, style: const TextStyle(fontSize: 17, color: ink)),
+          const Spacer(),
+          anchor(
+            toggleId,
+            Switch(
+              value: value,
+              activeTrackColor: accent,
+              onChanged: onChanged,
+            ),
+            container: false,
+          ),
+        ],
+      ),
+    ),
+  );
+
   @override
   Widget build(BuildContext context) => ScreenRoot(
     id: 'settings',
@@ -334,34 +368,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
         action: 'Back',
         onAction: () => widget.open('tasks'),
       ),
-      anchor(
+      _toggleRow(
         'settings.notify',
-        Container(
-          height: 52,
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Row(
-            children: [
-              const Text(
-                'Daily reminder',
-                style: TextStyle(fontSize: 17, color: ink),
-              ),
-              const Spacer(),
-              anchor(
-                'settings.notify-toggle',
-                Switch(
-                  value: notify,
-                  activeTrackColor: accent,
-                  onChanged: (value) => setState(() => notify = value),
-                ),
-                container: false,
-              ),
-            ],
-          ),
-        ),
+        'Daily reminder',
+        'settings.notify-toggle',
+        notify,
+        (value) => setState(() => notify = value),
+      ),
+      const SizedBox(height: 16),
+      _toggleRow(
+        'settings.weekly',
+        'Weekly summary',
+        'settings.weekly-toggle',
+        weekly,
+        (value) => setState(() => weekly = value),
       ),
       const SizedBox(height: 16),
       PrimaryButton(
