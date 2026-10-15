@@ -423,11 +423,22 @@ class _AboutScreenState extends State<AboutScreen> {
         container: false,
       ),
       const SizedBox(height: 16),
+      Padding(
+        padding: const EdgeInsets.only(bottom: 12),
+        child: anchor(
+          'about.version',
+          const Text(
+            'Version 1.0',
+            style: TextStyle(fontSize: 15, color: muted),
+          ),
+          container: false,
+        ),
+      ),
       PrimaryButton(
         id: 'about.more',
-        title: 'Show details',
+        title: showDetails ? 'Hide details' : 'Show details',
         wide: true,
-        onTap: () => setState(() => showDetails = true),
+        onTap: () => setState(() => showDetails = !showDetails),
       ),
       if (showDetails)
         Padding(

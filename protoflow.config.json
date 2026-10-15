@@ -42,6 +42,8 @@
           "/Users/feature/development/flutter",
           "--add-dir",
           "/Users/feature/.dart-tool",
+          "--add-dir",
+          "/Users/feature/.gradle",
           "--network"
         ],
         "timeoutMs": 1800000
