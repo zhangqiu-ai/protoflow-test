@@ -48,6 +48,28 @@ final class ProtoFlowTasksUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["tasks.title"].waitForExistence(timeout: 5))
     }
 
+    func testSettingsWeeklySummaryToggle() {
+        let app = launch("settings")
+        let notifyRow = app.otherElements["settings.notify"]
+        let weeklyRow = app.otherElements["settings.weekly"]
+        XCTAssertTrue(weeklyRow.waitForExistence(timeout: 5))
+        XCTAssertTrue(weeklyRow.staticTexts["Weekly summary"].exists)
+        let weekly = app.switches["settings.weekly-toggle"]
+        XCTAssertTrue(weekly.exists)
+        XCTAssertEqual(weekly.value as? String, "1")
+        XCTAssertEqual(app.switches["settings.notify-toggle"].value as? String, "0")
+        XCTAssertFalse(app.staticTexts["settings.saved"].exists)
+
+        let save = app.buttons["settings.save"]
+        XCTAssertGreaterThan(weeklyRow.frame.minY, notifyRow.frame.maxY - 1)
+        XCTAssertGreaterThan(save.frame.minY, weeklyRow.frame.maxY - 1)
+
+        weekly.tap()
+        XCTAssertEqual(weekly.value as? String, "0")
+        save.tap()
+        XCTAssertTrue(app.staticTexts["settings.saved"].waitForExistence(timeout: 5))
+    }
+
     func testAboutDetailsAndNavigation() {
         let app = launch("about")
         XCTAssertTrue(app.otherElements["about"].waitForExistence(timeout: 5))

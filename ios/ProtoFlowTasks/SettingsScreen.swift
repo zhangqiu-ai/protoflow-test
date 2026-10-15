@@ -3,6 +3,7 @@ import SwiftUI
 struct SettingsScreen: View {
     let open: (String) -> Void
     @State private var notify = false
+    @State private var weekly = true
     @State private var saved = false
 
     var body: some View {
@@ -21,6 +22,20 @@ struct SettingsScreen: View {
             .background(.white, in: RoundedRectangle(cornerRadius: 12))
             .accessibilityElement(children: .contain)
             .accessibilityIdentifier("settings.notify")
+            .padding(.bottom, 16)
+            HStack {
+                Text("Weekly summary").font(.system(size: 17))
+                Spacer()
+                Toggle("Weekly summary", isOn: $weekly)
+                    .labelsHidden()
+                    .tint(Color.accent)
+                    .accessibilityIdentifier("settings.weekly-toggle")
+            }
+            .padding(.horizontal, 16)
+            .frame(height: 52)
+            .background(.white, in: RoundedRectangle(cornerRadius: 12))
+            .accessibilityElement(children: .contain)
+            .accessibilityIdentifier("settings.weekly")
             .padding(.bottom, 16)
             PrimaryButton(title: "Save", wide: true) { saved = true }.accessibilityIdentifier("settings.save")
             if saved {
