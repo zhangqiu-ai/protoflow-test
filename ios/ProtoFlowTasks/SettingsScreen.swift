@@ -11,7 +11,9 @@ struct SettingsScreen: View {
             Header(prefix: "settings", title: "Settings", action: "Back") { open("tasks") }
             HStack {
                 Text("Daily reminder").font(.system(size: 17))
-                Spacer()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .contentShape(Rectangle())
+                    .onTapGesture { notify.toggle() }
                 Toggle("Daily reminder", isOn: $notify)
                     .labelsHidden()
                     .tint(Color.accent)
@@ -25,7 +27,9 @@ struct SettingsScreen: View {
             .padding(.bottom, 16)
             HStack {
                 Text("Weekly summary").font(.system(size: 17))
-                Spacer()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .contentShape(Rectangle())
+                    .onTapGesture { weekly.toggle() }
                 Toggle("Weekly summary", isOn: $weekly)
                     .labelsHidden()
                     .tint(Color.accent)

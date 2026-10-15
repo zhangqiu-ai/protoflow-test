@@ -70,6 +70,20 @@ final class ProtoFlowTasksUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["settings.saved"].waitForExistence(timeout: 5))
     }
 
+    func testTappingTheSettingNameTogglesIt() {
+        let app = launch("settings")
+        for (name, id, initial) in [("Daily reminder", "settings.notify-toggle", "0"), ("Weekly summary", "settings.weekly-toggle", "1")] {
+            let toggle = app.switches[id]
+            XCTAssertTrue(toggle.waitForExistence(timeout: 5))
+            XCTAssertEqual(toggle.value as? String, initial)
+            let flipped = initial == "0" ? "1" : "0"
+            app.staticTexts[name].tap()
+            XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "value == %@", flipped), object: toggle)], timeout: 5), .completed)
+            app.staticTexts[name].tap()
+            XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "value == %@", initial), object: toggle)], timeout: 5), .completed)
+        }
+    }
+
     func testAboutDetailsAndNavigation() {
         let app = launch("about")
         XCTAssertTrue(app.otherElements["about"].waitForExistence(timeout: 5))
