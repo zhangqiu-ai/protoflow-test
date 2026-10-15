@@ -333,27 +333,32 @@ class _SettingsScreenState extends State<SettingsScreen> {
     ValueChanged<bool> onChanged,
   ) => anchor(
     rowId,
-    Container(
-      height: 52,
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
-        children: [
-          Text(label, style: const TextStyle(fontSize: 17, color: ink)),
-          const Spacer(),
-          anchor(
-            toggleId,
-            Switch(
-              value: value,
-              activeTrackColor: accent,
-              onChanged: onChanged,
+    GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      excludeFromSemantics: true,
+      onTap: () => onChanged(!value),
+      child: Container(
+        height: 52,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Row(
+          children: [
+            Text(label, style: const TextStyle(fontSize: 17, color: ink)),
+            const Spacer(),
+            anchor(
+              toggleId,
+              Switch(
+                value: value,
+                activeTrackColor: accent,
+                onChanged: onChanged,
+              ),
+              container: false,
             ),
-            container: false,
-          ),
-        ],
+          ],
+        ),
       ),
     ),
   );
