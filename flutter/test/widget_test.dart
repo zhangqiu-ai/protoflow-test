@@ -86,18 +86,27 @@ void main() {
       'about.title',
       'about.back',
       'about.summary',
+      'about.version',
       'about.more',
     ]) {
       expect(byAnchor(id), findsOneWidget);
     }
     expect(find.text('About'), findsOneWidget);
     expect(find.text('Tasks keeps today\'s work in one list.'), findsOneWidget);
+    expect(find.text('Version 1.0'), findsOneWidget);
+    expect(find.text('Show details'), findsOneWidget);
     expect(byAnchor('about.details'), findsNothing);
 
     await tester.tap(find.text('Show details'));
     await tester.pump();
     expect(byAnchor('about.details'), findsOneWidget);
     expect(find.text('Built from a ProtoFlow prototype.'), findsOneWidget);
+    expect(find.text('Hide details'), findsOneWidget);
+
+    await tester.tap(find.text('Hide details'));
+    await tester.pump();
+    expect(byAnchor('about.details'), findsNothing);
+    expect(find.text('Show details'), findsOneWidget);
 
     await tester.tap(find.text('Back'));
     await tester.pump();
