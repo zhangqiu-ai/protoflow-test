@@ -46,10 +46,24 @@ void main() {
 
   testWidgets('settings can be saved and closed', (tester) async {
     await tester.pumpWidget(const TasksApp(initial: 'settings'));
-    await tester.tap(find.byType(Switch));
+    final notify = find.descendant(
+      of: byAnchor('settings.notify-toggle'),
+      matching: find.byType(Switch),
+    );
+    final weekly = find.descendant(
+      of: byAnchor('settings.weekly-toggle'),
+      matching: find.byType(Switch),
+    );
+    expect(byAnchor('settings.saved'), findsNothing);
+    expect(tester.widget<Switch>(weekly).value, isTrue);
+    await tester.tap(notify);
+    await tester.pump();
     await tester.tap(find.text('Save'));
     await tester.pump();
     expect(find.text('Saved.'), findsOneWidget);
+    expect(byAnchor('settings.saved'), findsOneWidget);
+    expect(tester.widget<Switch>(notify).value, isTrue);
+    expect(tester.widget<Switch>(weekly).value, isTrue);
     await tester.tap(find.text('Back'));
     await tester.pump();
     expect(find.text('My day'), findsOneWidget);
@@ -64,6 +78,8 @@ void main() {
       'settings.back',
       'settings.notify',
       'settings.notify-toggle',
+      'settings.weekly',
+      'settings.weekly-toggle',
       'settings.save',
     ]) {
       expect(byAnchor(id), findsOneWidget);
@@ -72,6 +88,29 @@ void main() {
     await tester.tap(find.text('Save'));
     await tester.pump();
     expect(byAnchor('settings.saved'), findsOneWidget);
+  });
+
+  testWidgets('weekly summary is on by default and can be toggled', (
+    tester,
+  ) async {
+    await tester.pumpWidget(const TasksApp(initial: 'settings'));
+    expect(find.text('Weekly summary'), findsOneWidget);
+    final toggle = find.descendant(
+      of: byAnchor('settings.weekly-toggle'),
+      matching: find.byType(Switch),
+    );
+    expect(tester.widget<Switch>(toggle).value, isTrue);
+    final notifyY = tester.getTopLeft(byAnchor('settings.notify')).dy;
+    final weeklyY = tester.getTopLeft(byAnchor('settings.weekly')).dy;
+    final saveY = tester.getTopLeft(byAnchor('settings.save')).dy;
+    expect(notifyY, lessThan(weeklyY));
+    expect(weeklyY, lessThan(saveY));
+    await tester.tap(toggle);
+    await tester.pump();
+    expect(tester.widget<Switch>(toggle).value, isFalse);
+    await tester.tap(find.text('Save'));
+    await tester.pump();
+    expect(find.text('Saved.'), findsOneWidget);
   });
 
   testWidgets('about opens directly, exposes its anchors, and shows details', (
@@ -125,7 +164,12 @@ void main() {
 
     await tester.tap(find.text('Settings'));
     await tester.pump();
-    for (final id in ['settings', 'settings.header', 'settings.notify']) {
+    for (final id in [
+      'settings',
+      'settings.header',
+      'settings.notify',
+      'settings.weekly',
+    ]) {
       final semantics = semanticsFor(tester, id);
       expect(semantics.container, isTrue, reason: id);
       expect(semantics.explicitChildNodes, isTrue, reason: id);
