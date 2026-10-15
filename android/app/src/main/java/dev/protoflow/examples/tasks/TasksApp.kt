@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Switch
@@ -29,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
@@ -152,7 +154,7 @@ fun SettingsScreen(open: (String) -> Unit) {
 @Composable
 private fun ToggleRow(tag: String, label: String, checked: Boolean, onCheckedChange: (Boolean) -> Unit) {
     Row(
-        Modifier.fillMaxWidth().height(52.dp).background(Color.White, RoundedCornerShape(12.dp)).testTag(tag).padding(horizontal = 16.dp),
+        Modifier.fillMaxWidth().height(52.dp).background(Color.White, RoundedCornerShape(12.dp)).testTag(tag).pointerInput(checked) { detectTapGestures { onCheckedChange(!checked) } }.padding(horizontal = 16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(label, fontSize = 17.sp, color = Ink)

@@ -82,6 +82,23 @@ class TasksAppTest {
         compose.onNodeWithTag("tasks.title").assertTextEquals("My day")
     }
 
+    @Test fun tappingTheSettingNameTogglesIt() {
+        compose.setContent { TasksApp("settings") }
+        compose.onNodeWithTag("settings.notify-toggle").assertIsOff()
+        compose.onNodeWithText("Daily reminder").performClick()
+        compose.onNodeWithTag("settings.notify-toggle").assertIsOn()
+        compose.onNodeWithText("Daily reminder").performClick()
+        compose.onNodeWithTag("settings.notify-toggle").assertIsOff()
+        compose.onNodeWithText("Weekly summary").performClick()
+        compose.onNodeWithTag("settings.weekly-toggle").assertIsOff()
+    }
+
+    @Test fun tappingTheSwitchTogglesOnce() {
+        compose.setContent { TasksApp("settings") }
+        compose.onNodeWithTag("settings.notify-toggle").performClick()
+        compose.onNodeWithTag("settings.notify-toggle").assertIsOn()
+    }
+
     @Test fun aboutScreenShowsDetailsAndNavigatesBack() {
         compose.setContent { TasksApp("about") }
 
