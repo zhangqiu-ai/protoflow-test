@@ -10,6 +10,11 @@ struct TasksScreen: View {
     var body: some View {
         ScreenRoot(id: "tasks") {
             Header(prefix: "tasks", title: "My day", action: "Settings") { open("settings") }
+            Text("\(items.count) tasks")
+                .font(.system(size: 15))
+                .foregroundStyle(Color.muted)
+                .accessibilityIdentifier("tasks.count")
+                .padding(.bottom, 12)
             VStack(spacing: 8) {
                 ForEach(Array(items.enumerated()), id: \.offset) { _, item in
                     Text(item)

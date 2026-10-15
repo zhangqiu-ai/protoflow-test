@@ -15,7 +15,14 @@ struct AboutScreen: View {
                 .background(.white, in: RoundedRectangle(cornerRadius: 12))
                 .accessibilityIdentifier("about.summary")
                 .padding(.bottom, 16)
-            PrimaryButton(title: "Show details", wide: true) { detailsVisible = true }
+            Text("Version 1.0")
+                .font(.system(size: 15))
+                .foregroundStyle(Color.muted)
+                .accessibilityIdentifier("about.version")
+                .padding(.bottom, 12)
+            PrimaryButton(title: detailsVisible ? "Hide details" : "Show details", wide: true) {
+                detailsVisible.toggle()
+            }
                 .accessibilityIdentifier("about.more")
             if detailsVisible {
                 Text("Built from a ProtoFlow prototype.")
