@@ -55,6 +55,7 @@ final class ProtoFlowTasksUITests: XCTestCase {
         XCTAssertEqual(app.staticTexts["about.title"].label, "About")
         XCTAssertEqual(app.buttons["about.back"].label, "Back")
         XCTAssertEqual(app.staticTexts["about.summary"].label, "Tasks keeps today's work in one list.")
+        XCTAssertEqual(app.staticTexts["about.version"].label, "Version 1.0")
         XCTAssertEqual(app.buttons["about.more"].label, "Show details")
         XCTAssertFalse(app.staticTexts["about.details"].exists)
 
@@ -62,6 +63,11 @@ final class ProtoFlowTasksUITests: XCTestCase {
         let details = app.staticTexts["about.details"]
         XCTAssertTrue(details.waitForExistence(timeout: 5))
         XCTAssertEqual(details.label, "Built from a ProtoFlow prototype.")
+        XCTAssertEqual(app.buttons["about.more"].label, "Hide details")
+
+        app.buttons["about.more"].tap()
+        XCTAssertFalse(details.exists)
+        XCTAssertEqual(app.buttons["about.more"].label, "Show details")
 
         app.buttons["about.back"].tap()
         XCTAssertTrue(app.staticTexts["tasks.title"].waitForExistence(timeout: 5))
