@@ -113,6 +113,38 @@ void main() {
     expect(find.text('Saved.'), findsOneWidget);
   });
 
+  testWidgets('tapping a setting name toggles it', (tester) async {
+    await tester.pumpWidget(const TasksApp(initial: 'settings'));
+    for (final entry in {
+      'Daily reminder': 'settings.notify-toggle',
+      'Weekly summary': 'settings.weekly-toggle',
+    }.entries) {
+      final toggle = find.descendant(
+        of: byAnchor(entry.value),
+        matching: find.byType(Switch),
+      );
+      final start = tester.widget<Switch>(toggle).value;
+      await tester.tap(find.text(entry.key));
+      await tester.pump();
+      expect(tester.widget<Switch>(toggle).value, !start, reason: entry.key);
+      await tester.tap(find.text(entry.key));
+      await tester.pump();
+      expect(tester.widget<Switch>(toggle).value, start, reason: entry.key);
+    }
+  });
+
+  testWidgets('tapping the switch toggles it once', (tester) async {
+    await tester.pumpWidget(const TasksApp(initial: 'settings'));
+    final toggle = find.descendant(
+      of: byAnchor('settings.notify-toggle'),
+      matching: find.byType(Switch),
+    );
+    expect(tester.widget<Switch>(toggle).value, isFalse);
+    await tester.tap(toggle);
+    await tester.pump();
+    expect(tester.widget<Switch>(toggle).value, isTrue);
+  });
+
   testWidgets('about opens directly, exposes its anchors, and shows details', (
     tester,
   ) async {
