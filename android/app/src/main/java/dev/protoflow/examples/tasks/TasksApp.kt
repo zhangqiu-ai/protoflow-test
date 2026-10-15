@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Switch
@@ -135,32 +136,40 @@ fun TasksScreen(open: (String) -> Unit) {
 @Composable
 fun SettingsScreen(open: (String) -> Unit) {
     var notify by remember { mutableStateOf(false) }
+    var weekly by remember { mutableStateOf(true) }
     var saved by remember { mutableStateOf(false) }
     ScreenRoot("settings") {
         Header("settings", "Settings", "Back") { open("tasks") }
-        Row(
-            Modifier.fillMaxWidth().height(52.dp).background(Color.White, RoundedCornerShape(12.dp)).testTag("settings.notify").padding(horizontal = 16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text("Daily reminder", fontSize = 17.sp, color = Ink)
-            Spacer(Modifier.weight(1f))
-            Switch(
-                checked = notify,
-                onCheckedChange = { notify = it },
-                modifier = Modifier.testTag("settings.notify-toggle"),
-                colors = SwitchDefaults.colors(
-                    checkedThumbColor = Color.White,
-                    checkedTrackColor = Accent,
-                    checkedBorderColor = Accent,
-                    uncheckedThumbColor = Color.White,
-                    uncheckedTrackColor = ToggleTrack,
-                    uncheckedBorderColor = ToggleTrack
-                )
-            )
-        }
+        ToggleRow("settings.notify", "Daily reminder", notify) { notify = it }
+        Spacer(Modifier.height(16.dp))
+        ToggleRow("settings.weekly", "Weekly summary", weekly) { weekly = it }
         Spacer(Modifier.height(16.dp))
         PrimaryButton("settings.save", "Save", Modifier.fillMaxWidth()) { saved = true }
         if (saved) Text("Saved.", Modifier.padding(top = 12.dp).testTag("settings.saved"), fontSize = 15.sp, color = Accent)
+    }
+}
+
+@Composable
+private fun ToggleRow(tag: String, label: String, checked: Boolean, onCheckedChange: (Boolean) -> Unit) {
+    Row(
+        Modifier.fillMaxWidth().height(52.dp).background(Color.White, RoundedCornerShape(12.dp)).testTag(tag).padding(horizontal = 16.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(label, fontSize = 17.sp, color = Ink)
+        Spacer(Modifier.weight(1f))
+        Switch(
+            checked = checked,
+            onCheckedChange = onCheckedChange,
+            modifier = Modifier.width(61.dp).testTag("$tag-toggle"),
+            colors = SwitchDefaults.colors(
+                checkedThumbColor = Color.White,
+                checkedTrackColor = Accent,
+                checkedBorderColor = Accent,
+                uncheckedThumbColor = Color.White,
+                uncheckedTrackColor = ToggleTrack,
+                uncheckedBorderColor = ToggleTrack
+            )
+        )
     }
 }
 
