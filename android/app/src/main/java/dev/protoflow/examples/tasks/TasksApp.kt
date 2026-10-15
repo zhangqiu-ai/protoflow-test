@@ -176,7 +176,18 @@ fun AboutScreen(open: (String) -> Unit) {
             Text("Tasks keeps today's work in one list.", fontSize = 17.sp, color = Ink)
         }
         Spacer(Modifier.height(16.dp))
-        PrimaryButton("about.more", "Show details", Modifier.fillMaxWidth()) { showDetails = true }
+        Text(
+            "Version 1.0",
+            Modifier.testTag("about.version"),
+            fontSize = 15.sp,
+            color = Muted
+        )
+        Spacer(Modifier.height(12.dp))
+        PrimaryButton(
+            "about.more",
+            if (showDetails) "Hide details" else "Show details",
+            Modifier.fillMaxWidth()
+        ) { showDetails = !showDetails }
         if (showDetails) {
             Text(
                 "Built from a ProtoFlow prototype.",
