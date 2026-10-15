@@ -27,13 +27,36 @@
     "maxRepairAttempts": 2,
     "requireHumanReview": true,
     "sequentialVersions": true,
-    "autoApprove": true
+    "autoApprove": true,
+    "executor": {
+      "primary": "claude",
+      "fallback": "codex"
+    }
   },
   "adapters": {
+    "claude": {
+      "command": {
+        "argv": [
+          "node",
+          "/Users/feature/code/protoflow/scripts/claude-exec-adapter.js",
+          "--model",
+          "claude-sonnet-5-5",
+          "--max-budget-usd",
+          "10",
+          "--add-dir",
+          "/Users/feature/development/flutter",
+          "--add-dir",
+          "/Users/feature/.dart-tool",
+          "--add-dir",
+          "/Users/feature/.gradle"
+        ],
+        "timeoutMs": 1800000
+      }
+    },
     "codex": {
       "command": {
         "argv": [
-          "/Users/feature/.local/bin/node",
+          "node",
           "/Users/feature/code/protoflow/scripts/codex-adapter.js",
           "--model",
           "gpt-5.6-terra",
@@ -49,13 +72,29 @@
         "timeoutMs": 1800000
       }
     },
-    "independentReview": {
+    "planner": {
       "command": {
         "argv": [
-          "/Users/feature/.local/bin/node",
-          "/Users/feature/code/protoflow/scripts/codex-review-adapter.js",
+          "node",
+          "/Users/feature/code/protoflow/scripts/claude-adapter.js",
           "--model",
-          "gpt-5.6-terra"
+          "claude-opus-5-5",
+          "--max-budget-usd",
+          "5"
+        ],
+        "timeoutMs": 900000
+      }
+    },
+    "independentReview": {
+      "provider": "claude",
+      "command": {
+        "argv": [
+          "node",
+          "/Users/feature/code/protoflow/scripts/claude-review-adapter.js",
+          "--model",
+          "claude-opus-5-5",
+          "--max-budget-usd",
+          "5"
         ],
         "timeoutMs": 900000
       }
@@ -281,6 +320,14 @@
   ],
   "release": {
     "requireTargets": [
+      "ios",
+      "android",
+      "flutter"
+    ]
+  },
+  "issues": {
+    "enabled": true,
+    "targets": [
       "ios",
       "android",
       "flutter"
