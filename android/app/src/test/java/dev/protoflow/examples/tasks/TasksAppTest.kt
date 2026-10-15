@@ -2,13 +2,17 @@ package dev.protoflow.examples.tasks
 
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertIsOff
+import androidx.compose.ui.test.assertIsOn
 import androidx.compose.ui.test.assertTextEquals
+import androidx.compose.ui.test.assertWidthIsEqualTo
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
+import androidx.compose.ui.unit.dp
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -61,7 +65,15 @@ class TasksAppTest {
         compose.onNodeWithTag("settings.notify").assertIsDisplayed()
         compose.onNodeWithText("Daily reminder").assertIsDisplayed()
         compose.onNodeWithTag("settings.notify-toggle").assertIsDisplayed()
+        compose.onNodeWithTag("settings.notify-toggle").assertIsOff()
+        compose.onNodeWithTag("settings.weekly").assertIsDisplayed()
+        compose.onNodeWithText("Weekly summary").assertIsDisplayed()
+        compose.onNodeWithTag("settings.weekly-toggle").assertIsDisplayed().assertIsOn()
+        compose.onNodeWithTag("settings.weekly-toggle").assertWidthIsEqualTo(61.dp)
+        compose.onNodeWithTag("settings.weekly-toggle").performClick()
+        compose.onNodeWithTag("settings.weekly-toggle").assertIsOff()
         compose.onNodeWithTag("settings.save").assertTextEquals("Save")
+        compose.onAllNodesWithTag("settings.saved").assertCountEquals(0)
         compose.onNodeWithTag("settings.notify-toggle").performClick()
         compose.onNodeWithTag("settings.save").performClick()
         compose.onNodeWithTag("settings.saved").assertIsDisplayed()
