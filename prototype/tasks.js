@@ -10,4 +10,6 @@ document.getElementById('form').addEventListener('submit', event => {
   item.textContent = input.value.trim();
   document.getElementById('list').append(item);
   input.value = '';
+  const total = document.querySelectorAll('#list li').length;
+  document.getElementById('count').textContent = `${total} ${total === 1 ? 'task' : 'tasks'}`;
 });
