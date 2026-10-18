@@ -30,7 +30,11 @@
     "autoApprove": true,
     "executor": {
       "primary": "claude",
-      "fallback": "codex"
+      "fallback": "codex",
+      "routes": {
+        "frontend": "claude",
+        "backend": "codex"
+      }
     }
   },
   "adapters": {
