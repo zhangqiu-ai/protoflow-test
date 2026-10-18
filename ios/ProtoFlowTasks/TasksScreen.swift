@@ -33,6 +33,8 @@ struct TasksScreen: View {
                 TextField("New task", text: $draft)
                     .font(.system(size: 17))
                     .focused($focused)
+                    .submitLabel(.done)
+                    .onSubmit(add)
                     .padding(.horizontal, 12)
                     .frame(height: 44)
                     .background(.white, in: RoundedRectangle(cornerRadius: 10))

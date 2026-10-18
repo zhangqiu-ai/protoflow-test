@@ -41,6 +41,33 @@ final class ProtoFlowTasksUITests: XCTestCase {
         XCTAssertEqual(app.staticTexts.matching(identifier: "tasks.item").count, 2)
     }
 
+    func testPressingReturnAddsTheTask() {
+        let app = launch("tasks")
+        let count = app.staticTexts["tasks.count"]
+        XCTAssertTrue(count.waitForExistence(timeout: 5))
+        let input = app.textFields["tasks.input"]
+        input.tap()
+        input.typeText("Write tests\n")
+        XCTAssertEqual(app.staticTexts.matching(identifier: "tasks.item").count, 3)
+        XCTAssertTrue(app.staticTexts["Write tests"].exists)
+        let countUpdate = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "label == %@", "3 tasks"),
+            object: count
+        )
+        XCTAssertEqual(XCTWaiter.wait(for: [countUpdate], timeout: 5), .completed)
+        XCTAssertFalse(app.staticTexts["tasks.error"].exists)
+    }
+
+    func testPressingReturnOnAnEmptyFieldShowsTheError() {
+        let app = launch("tasks")
+        let input = app.textFields["tasks.input"]
+        XCTAssertTrue(input.waitForExistence(timeout: 5))
+        input.tap()
+        input.typeText("\n")
+        XCTAssertTrue(app.staticTexts["tasks.error"].waitForExistence(timeout: 5))
+        XCTAssertEqual(app.staticTexts.matching(identifier: "tasks.item").count, 2)
+    }
+
     func testSettingsSaveAndNavigation() {
         let app = launch("settings")
         app.switches["settings.notify-toggle"].tap()
