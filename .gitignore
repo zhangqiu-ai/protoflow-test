@@ -1,0 +1,6 @@
+.protoflow/
+expo/node_modules/
+expo/ios/
+expo/android/
+expo/build/
+expo/.expo/
