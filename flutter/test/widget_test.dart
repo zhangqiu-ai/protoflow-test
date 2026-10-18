@@ -44,6 +44,32 @@ void main() {
     expect(byAnchor('tasks.error'), findsOneWidget);
   });
 
+  testWidgets('adding a whitespace-only task shows the error and adds nothing', (
+    tester,
+  ) async {
+    await tester.pumpWidget(const TasksApp(initial: 'tasks'));
+    await tester.enterText(find.byType(TextField), '   ');
+    await tester.tap(find.text('Add'));
+    await tester.pump();
+    expect(find.text('Enter a task first.'), findsOneWidget);
+    expect(byAnchor('tasks.error'), findsOneWidget);
+    expect(byAnchor('tasks.item'), findsNWidgets(2));
+    expect(find.text('2 tasks'), findsOneWidget);
+  });
+
+  testWidgets('adding a padded task trims the name', (tester) async {
+    await tester.pumpWidget(const TasksApp(initial: 'tasks'));
+    await tester.enterText(find.byType(TextField), '  Write tests  ');
+    await tester.tap(find.text('Add'));
+    await tester.pump();
+    expect(find.text('Write tests'), findsOneWidget);
+    expect(find.text('  Write tests  '), findsNothing);
+    expect(byAnchor('tasks.item'), findsNWidgets(3));
+    expect(find.text('3 tasks'), findsOneWidget);
+    expect(find.text('Enter a task first.'), findsNothing);
+    expect(tester.widget<TextField>(find.byType(TextField)).controller!.text, '');
+  });
+
   testWidgets('settings can be saved and closed', (tester) async {
     await tester.pumpWidget(const TasksApp(initial: 'settings'));
     final notify = find.descendant(
