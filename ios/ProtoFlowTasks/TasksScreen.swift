@@ -56,8 +56,7 @@ struct TasksScreen: View {
 
     private func add() {
         focused = false
-        let text = draft.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !text.isEmpty else { showError = true; return }
+        guard let text = validTaskName(draft) else { showError = true; return }
         showError = false
         items.append(text)
         draft = ""
