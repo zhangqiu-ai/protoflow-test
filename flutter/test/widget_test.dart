@@ -28,20 +28,23 @@ void main() {
     expect(byAnchor('tasks.form'), findsOneWidget);
     expect(byAnchor('tasks.input'), findsOneWidget);
     expect(byAnchor('tasks.add'), findsOneWidget);
+    expect(byAnchor('tasks.error'), findsNothing);
     await tester.enterText(find.byType(TextField), 'Write tests');
     await tester.tap(find.text('Add'));
     await tester.pump();
     expect(find.text('Write tests'), findsOneWidget);
     expect(find.text('3 tasks'), findsOneWidget);
-    expect(find.text('Enter a task first.'), findsNothing);
+    expect(find.text('Type a task name first.'), findsNothing);
+    expect(byAnchor('tasks.error'), findsNothing);
   });
 
   testWidgets('adding an empty task shows the error', (tester) async {
     await tester.pumpWidget(const TasksApp(initial: 'tasks'));
     await tester.tap(find.text('Add'));
     await tester.pump();
-    expect(find.text('Enter a task first.'), findsOneWidget);
+    expect(find.text('Type a task name first.'), findsOneWidget);
     expect(byAnchor('tasks.error'), findsOneWidget);
+    expect(find.text('Enter a task first.'), findsNothing);
   });
 
   testWidgets('adding a whitespace-only task shows the error and adds nothing', (
@@ -51,7 +54,7 @@ void main() {
     await tester.enterText(find.byType(TextField), '   ');
     await tester.tap(find.text('Add'));
     await tester.pump();
-    expect(find.text('Enter a task first.'), findsOneWidget);
+    expect(find.text('Type a task name first.'), findsOneWidget);
     expect(byAnchor('tasks.error'), findsOneWidget);
     expect(byAnchor('tasks.item'), findsNWidgets(2));
     expect(find.text('2 tasks'), findsOneWidget);
@@ -66,7 +69,7 @@ void main() {
     expect(find.text('  Write tests  '), findsNothing);
     expect(byAnchor('tasks.item'), findsNWidgets(3));
     expect(find.text('3 tasks'), findsOneWidget);
-    expect(find.text('Enter a task first.'), findsNothing);
+    expect(find.text('Type a task name first.'), findsNothing);
     expect(tester.widget<TextField>(find.byType(TextField)).controller!.text, '');
   });
 

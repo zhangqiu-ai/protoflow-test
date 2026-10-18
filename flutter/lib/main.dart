@@ -305,7 +305,7 @@ class _TasksScreenState extends State<TasksScreen> {
           child: anchor(
             'tasks.error',
             const Text(
-              'Enter a task first.',
+              'Type a task name first.',
               style: TextStyle(fontSize: 15, color: danger),
             ),
             container: false,
