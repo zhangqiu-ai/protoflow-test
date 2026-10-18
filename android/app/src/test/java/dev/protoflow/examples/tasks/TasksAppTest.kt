@@ -52,6 +52,7 @@ class TasksAppTest {
         compose.setContent { TasksApp("tasks") }
         compose.onNodeWithTag("tasks.add").performClick()
         compose.onNodeWithTag("tasks.error").assertIsDisplayed()
+        compose.onNodeWithTag("tasks.error").assertTextEquals("Type a task name first.")
         compose.onAllNodesWithTag("tasks.item").assertCountEquals(2)
     }
 
