@@ -10,6 +10,14 @@ test('the app starts on the tasks screen', async () => {
   const router = await open();
   expect(router.getPathname()).toBe('/tasks');
   expect(texts('tasks.item')).toEqual(['Review prototype', 'Ship version']);
+  expect(texts('tasks.count')).toEqual(['2 tasks']);
+});
+
+test('the tasks screen children keep the prototype order', async () => {
+  await open('/tasks');
+  await fireEvent.press(screen.getByTestId('tasks.add'));
+  const ids = screen.getByTestId('tasks').children.map((child: any) => child.props.testID);
+  expect(ids).toEqual(['tasks.header', 'tasks.count', 'tasks.list', 'tasks.form', 'tasks.error']);
 });
 
 test('adding a task appends it and clears the field', async () => {
@@ -18,6 +26,7 @@ test('adding a task appends it and clears the field', async () => {
   await fireEvent.press(screen.getByTestId('tasks.add'));
   expect(texts('tasks.item')).toEqual(['Review prototype', 'Ship version', 'Write tests']);
   expect(screen.queryByTestId('tasks.error')).toBeNull();
+  expect(texts('tasks.count')).toEqual(['3 tasks']);
   expect(screen.getByTestId('tasks.input').props.value).toBe('');
 });
 
@@ -26,6 +35,7 @@ test('adding an empty task shows the error', async () => {
   await fireEvent.press(screen.getByTestId('tasks.add'));
   expect(screen.getByTestId('tasks.error')).toBeTruthy();
   expect(texts('tasks.item')).toHaveLength(2);
+  expect(texts('tasks.count')).toEqual(['2 tasks']);
 });
 
 test('settings can be saved and closed', async () => {
