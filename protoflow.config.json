@@ -73,9 +73,10 @@
               "-configuration",
               "Release",
               "-destination",
-              "generic/platform=iOS Simulator",
+              "platform=iOS Simulator,name=ProtoFlow iPhone 17",
               "-derivedDataPath",
               "expo/build/DerivedData",
+              "ONLY_ACTIVE_ARCH=YES",
               "CODE_SIGNING_ALLOWED=NO",
               "-quiet"
             ],
