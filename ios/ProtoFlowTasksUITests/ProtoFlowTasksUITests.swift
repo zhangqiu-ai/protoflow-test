@@ -34,8 +34,10 @@ final class ProtoFlowTasksUITests: XCTestCase {
 
     func testAddingAnEmptyTaskShowsTheError() {
         let app = launch("tasks")
+        XCTAssertFalse(app.staticTexts["tasks.error"].exists)
         app.buttons["tasks.add"].tap()
         XCTAssertTrue(app.staticTexts["tasks.error"].waitForExistence(timeout: 5))
+        XCTAssertEqual(app.staticTexts["tasks.error"].label, "Type a task name first.")
         XCTAssertEqual(app.staticTexts.matching(identifier: "tasks.item").count, 2)
     }
 
