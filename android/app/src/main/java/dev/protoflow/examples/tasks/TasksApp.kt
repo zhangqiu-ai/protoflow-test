@@ -131,7 +131,7 @@ fun TasksScreen(open: (String) -> Unit) {
             )
             PrimaryButton("tasks.add", "Add", onClick = add)
         }
-        if (showError) Text("Enter a task first.", Modifier.padding(top = 12.dp).testTag("tasks.error"), fontSize = 15.sp, color = Danger)
+        if (showError) Text("Type a task name first.", Modifier.padding(top = 12.dp).testTag("tasks.error"), fontSize = 15.sp, color = Danger)
     }
 }
 

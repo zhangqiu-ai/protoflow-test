@@ -43,7 +43,7 @@ struct TasksScreen: View {
             .accessibilityElement(children: .contain)
             .accessibilityIdentifier("tasks.form")
             if showError {
-                Text("Enter a task first.")
+                Text("Type a task name first.")
                     .font(.system(size: 15))
                     .foregroundStyle(Color.danger)
                     .padding(.top, 12)
