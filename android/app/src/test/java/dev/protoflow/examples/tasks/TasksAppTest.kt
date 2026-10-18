@@ -11,6 +11,7 @@ import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performImeAction
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.unit.dp
 import org.junit.Rule
@@ -53,6 +54,23 @@ class TasksAppTest {
         compose.onNodeWithTag("tasks.add").performClick()
         compose.onNodeWithTag("tasks.error").assertIsDisplayed()
         compose.onNodeWithTag("tasks.error").assertTextEquals("Type a task name first.")
+        compose.onAllNodesWithTag("tasks.item").assertCountEquals(2)
+    }
+
+    @Test fun pressingEnterInTheInputAddsTheTask() {
+        compose.setContent { TasksApp("tasks") }
+        compose.onNodeWithTag("tasks.input").performTextInput("Write tests")
+        compose.onNodeWithTag("tasks.input").performImeAction()
+        compose.onAllNodesWithTag("tasks.item").assertCountEquals(3)
+        compose.onNodeWithTag("tasks.count").assertTextEquals("3 tasks")
+        compose.onNodeWithText("Write tests").assertIsDisplayed()
+        compose.onAllNodesWithTag("tasks.error").assertCountEquals(0)
+    }
+
+    @Test fun pressingEnterOnAnEmptyInputShowsTheError() {
+        compose.setContent { TasksApp("tasks") }
+        compose.onNodeWithTag("tasks.input").performImeAction()
+        compose.onNodeWithTag("tasks.error").assertIsDisplayed()
         compose.onAllNodesWithTag("tasks.item").assertCountEquals(2)
     }
 
