@@ -39,6 +39,7 @@ export const styles = StyleSheet.create({
   wide: { alignSelf: 'stretch' },
   buttonText: { color: '#ffffff', fontSize: 17, fontWeight: '600' },
   // Text hugs its content like the prototype's fit-content paragraphs (flex children stretch by default).
+  count: { alignSelf: 'flex-start', color: colors.ink, fontSize: 15, marginBottom: 12 },
   error: { alignSelf: 'flex-start', color: colors.danger, fontSize: 15, marginTop: 12 },
   saved: { alignSelf: 'flex-start', color: colors.accent, fontSize: 15, marginTop: 12 },
   row: { height: 52, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', backgroundColor: colors.surface, borderRadius: 12, paddingHorizontal: 16, marginBottom: 16 },

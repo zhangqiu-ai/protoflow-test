@@ -19,6 +19,7 @@ export default function Tasks() {
   return (
     <View testID="tasks" style={styles.screen}>
       <Header prefix="tasks" title="Today" action="Settings" onPress={() => router.push('/settings')} />
+      <Text testID="tasks.count" style={styles.count}>{`${items.length} ${items.length === 1 ? 'task' : 'tasks'}`}</Text>
       <View testID="tasks.list" style={styles.list}>
         {items.map((item, index) => <Text key={index} testID="tasks.item" style={styles.item}>{item}</Text>)}
       </View>
