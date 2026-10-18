@@ -100,8 +100,8 @@ fun TasksScreen(open: (String) -> Unit) {
     val focus = LocalFocusManager.current
     val add = {
         focus.clearFocus()
-        val text = draft.trim()
-        if (text.isEmpty()) showError = true else { showError = false; items.add(text); draft = "" }
+        val text = validTaskName(draft)
+        if (text == null) showError = true else { showError = false; items.add(text); draft = "" }
     }
     ScreenRoot("tasks") {
         Header("tasks", "My day", "Settings") { open("settings") }
