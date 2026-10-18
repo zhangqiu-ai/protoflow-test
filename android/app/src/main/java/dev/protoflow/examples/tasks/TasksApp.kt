@@ -17,6 +17,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
@@ -38,6 +40,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -120,6 +123,8 @@ fun TasksScreen(open: (String) -> Unit) {
         Row(Modifier.fillMaxWidth().testTag("tasks.form"), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             BasicTextField(
                 value = draft, onValueChange = { draft = it }, singleLine = true,
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                keyboardActions = KeyboardActions(onDone = { add() }),
                 textStyle = TextStyle(fontSize = 17.sp, color = Ink),
                 modifier = Modifier.weight(1f).height(44.dp).background(Color.White, RoundedCornerShape(10.dp)).border(1.dp, Border, RoundedCornerShape(10.dp)).testTag("tasks.input"),
                 decorationBox = { field ->
