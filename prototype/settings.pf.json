@@ -5,6 +5,23 @@
     "saved": {
       "steps": [{ "action": "toggle", "anchor": "settings.notify-toggle" }, { "action": "tap", "anchor": "settings.save" }],
       "expect": { "visible": ["settings.saved"] }
+    },
+    "saved-then-changed": {
+      "steps": [
+        { "action": "toggle", "anchor": "settings.notify-toggle" },
+        { "action": "tap", "anchor": "settings.save" },
+        { "action": "toggle", "anchor": "settings.notify-toggle" }
+      ],
+      "expect": { "hidden": ["settings.saved"] }
+    },
+    "changed-then-saved-again": {
+      "steps": [
+        { "action": "toggle", "anchor": "settings.notify-toggle" },
+        { "action": "tap", "anchor": "settings.save" },
+        { "action": "toggle", "anchor": "settings.weekly-toggle" },
+        { "action": "tap", "anchor": "settings.save" }
+      ],
+      "expect": { "visible": ["settings.saved"] }
     }
   }
 }
