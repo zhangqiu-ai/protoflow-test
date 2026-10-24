@@ -6,6 +6,13 @@
       "steps": [{ "action": "tap", "anchor": "tasks.add" }],
       "expect": { "visible": ["tasks.error"] }
     },
+    "error-cleared-on-typing": {
+      "steps": [
+        { "action": "tap", "anchor": "tasks.add" },
+        { "action": "fill", "anchor": "tasks.input", "value": "W" }
+      ],
+      "expect": { "hidden": ["tasks.error"] }
+    },
     "added": {
       "steps": [
         { "action": "fill", "anchor": "tasks.input", "value": "Write tests" },

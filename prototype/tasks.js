@@ -13,3 +13,4 @@ document.getElementById('form').addEventListener('submit', event => {
   document.getElementById('count').textContent = `${list.children.length} tasks`;
   input.value = '';
 });
+document.getElementById('task').addEventListener('input', () => { document.getElementById('error').hidden = true; });
