@@ -118,6 +118,41 @@ class TasksAppTest {
         compose.onNodeWithTag("settings.notify-toggle").assertIsOn()
     }
 
+    @Test fun typingAfterTheErrorClearsIt() {
+        compose.setContent { TasksApp("tasks") }
+        compose.onNodeWithTag("tasks.add").performClick()
+        compose.onNodeWithTag("tasks.error").assertIsDisplayed()
+        compose.onNodeWithTag("tasks.input").performTextInput("W")
+        compose.onAllNodesWithTag("tasks.error").assertCountEquals(0)
+    }
+
+    @Test fun changingASettingAfterSavingHidesSaved() {
+        compose.setContent { TasksApp("settings") }
+        compose.onNodeWithTag("settings.notify-toggle").performClick()
+        compose.onNodeWithTag("settings.save").performClick()
+        compose.onNodeWithTag("settings.saved").assertIsDisplayed()
+        compose.onNodeWithTag("settings.notify-toggle").performClick()
+        compose.onAllNodesWithTag("settings.saved").assertCountEquals(0)
+    }
+
+    @Test fun savingAgainAfterAChangeShowsSaved() {
+        compose.setContent { TasksApp("settings") }
+        compose.onNodeWithTag("settings.notify-toggle").performClick()
+        compose.onNodeWithTag("settings.save").performClick()
+        compose.onNodeWithTag("settings.weekly-toggle").performClick()
+        compose.onAllNodesWithTag("settings.saved").assertCountEquals(0)
+        compose.onNodeWithTag("settings.save").performClick()
+        compose.onNodeWithTag("settings.saved").assertIsDisplayed().assertTextEquals("Saved.")
+    }
+
+    @Test fun tappingASettingRowAfterSavingHidesSaved() {
+        compose.setContent { TasksApp("settings") }
+        compose.onNodeWithTag("settings.save").performClick()
+        compose.onNodeWithTag("settings.saved").assertIsDisplayed()
+        compose.onNodeWithText("Weekly summary").performClick()
+        compose.onAllNodesWithTag("settings.saved").assertCountEquals(0)
+    }
+
     @Test fun aboutScreenShowsDetailsAndNavigatesBack() {
         compose.setContent { TasksApp("about") }
 

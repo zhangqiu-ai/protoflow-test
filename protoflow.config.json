@@ -335,6 +335,7 @@
       "ios",
       "android",
       "flutter"
-    ]
+    ],
+    "all": true
   }
 }

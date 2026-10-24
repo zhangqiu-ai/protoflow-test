@@ -122,7 +122,7 @@ fun TasksScreen(open: (String) -> Unit) {
         Spacer(Modifier.height(16.dp))
         Row(Modifier.fillMaxWidth().testTag("tasks.form"), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             BasicTextField(
-                value = draft, onValueChange = { draft = it }, singleLine = true,
+                value = draft, onValueChange = { draft = it; showError = false }, singleLine = true,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                 keyboardActions = KeyboardActions(onDone = { add() }),
                 textStyle = TextStyle(fontSize = 17.sp, color = Ink),
@@ -147,9 +147,9 @@ fun SettingsScreen(open: (String) -> Unit) {
     var saved by remember { mutableStateOf(false) }
     ScreenRoot("settings") {
         Header("settings", "Settings", "Back") { open("tasks") }
-        ToggleRow("settings.notify", "Daily reminder", notify) { notify = it }
+        ToggleRow("settings.notify", "Daily reminder", notify) { notify = it; saved = false }
         Spacer(Modifier.height(16.dp))
-        ToggleRow("settings.weekly", "Weekly summary", weekly) { weekly = it }
+        ToggleRow("settings.weekly", "Weekly summary", weekly) { weekly = it; saved = false }
         Spacer(Modifier.height(16.dp))
         PrimaryButton("settings.save", "Save", Modifier.fillMaxWidth()) { saved = true }
         if (saved) Text("Saved.", Modifier.padding(top = 12.dp).testTag("settings.saved"), fontSize = 15.sp, color = Accent)
