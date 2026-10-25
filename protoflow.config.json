@@ -301,10 +301,8 @@
     "codex": {
       "command": {
         "argv": [
-          "/Users/feature/.hermes/node/bin/node",
+          "/Users/feature/.local/share/node-default/bin/node",
           "/Users/feature/code/protoflow/scripts/codex-adapter.js",
-          "--model",
-          "gpt-6-astra",
           "--ephemeral"
         ],
         "timeoutMs": 600000
@@ -344,6 +342,15 @@
           "--agent",
           "codex",
           "--yes"
+        ],
+        "timeoutMs": 600000
+      }
+    },
+    "independentReview": {
+      "command": {
+        "argv": [
+          "/Users/feature/.local/share/node-default/bin/node",
+          "/Users/feature/code/protoflow/scripts/codex-review-adapter.js"
         ],
         "timeoutMs": 600000
       }

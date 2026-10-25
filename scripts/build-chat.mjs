@@ -10,4 +10,8 @@ for(const name of ['chat.html']){
 }
 await fs.mkdir('.protoflow/site',{recursive:true});
 for(const name of files)await fs.copyFile('app/'+name,'.protoflow/site/'+name);
-console.log('Added static conversation HTML/CSS to .protoflow/site after the unchanged login build');
+for(const name of ['ai.html','ai.css']){
+ try{await fs.copyFile('app/'+name,'.protoflow/site/'+name);}
+ catch(error){if(error.code!=='ENOENT')throw error;}
+}
+console.log('Added static conversation and AI briefing HTML/CSS to .protoflow/site after the unchanged login build');
