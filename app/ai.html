@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>ProtoFlow — AI briefing</title><link rel="stylesheet" href="ai.css"></head>
+<body>
+<header class="page-header"><span class="wordmark"><span class="brand-mark">P</span> ProtoFlow</span><a href="index.html">← Back to sign in</a></header>
+<main id="panel">
+ <section class="briefing-header"><div><span class="section-tag">AI BRIEFING</span><h1>What's new in AI</h1><p class="subtitle">A short, curated digest for product teams. Demo content only.</p></div><span class="demo-badge">Fictional digest</span></section>
+ <div class="filters" role="group" aria-label="Filter topics"><button type="button" class="filter" data-topic="all" aria-pressed="true">All</button><button type="button" class="filter" data-topic="models" aria-pressed="false">Models</button><button type="button" class="filter" data-topic="research" aria-pressed="false">Research</button><button type="button" class="filter" data-topic="tools" aria-pressed="false">Tools</button></div>
+ <ul id="briefings" aria-live="polite">
+  <li class="briefing" data-topic="models"><span class="topic">MODELS</span><strong>Smaller models, longer context</strong><p>Compact models now handle long documents well enough for everyday summarising and drafting.</p><small>3 min read</small></li>
+  <li class="briefing" data-topic="research"><span class="topic">RESEARCH</span><strong>Evaluations move closer to real tasks</strong><p>Benchmarks increasingly measure multi-step work instead of single question-and-answer pairs.</p><small>4 min read</small></li>
+  <li class="briefing" data-topic="tools"><span class="topic">TOOLS</span><strong>Agents that open pull requests</strong><p>Coding assistants can plan a change, run tests and hand a reviewed diff back to the team.</p><small>2 min read</small></li>
+  <li class="briefing" data-topic="tools"><span class="topic">TOOLS</span><strong>Prototype to product, verified</strong><p>Design prototypes become the input; every version is checked before the next one starts.</p><small>2 min read</small></li>
+ </ul>
+ <p id="status" role="status">Showing 4 briefings</p>
+</main>
+<footer><a href="chat.html">Open the demo conversation →</a><span>·</span>Fictional AI news, nothing is fetched</footer>
+<script>
+(function () {
+ const filters = document.querySelectorAll('.filter');
+ const items = document.querySelectorAll('.briefing');
+ const status = document.getElementById('status');
+ filters.forEach(function (button) {
+  button.addEventListener('click', function () {
+   const topic = button.dataset.topic;
+   filters.forEach(function (b) { b.setAttribute('aria-pressed', String(b === button)); });
+   let shown = 0;
+   items.forEach(function (item) { const match = topic === 'all' || item.dataset.topic === topic; item.hidden = !match; if (match) shown++; });
+   status.textContent = 'Showing ' + shown + (shown === 1 ? ' briefing' : ' briefings');
+  });
+ });
+}());
+</script></body></html>
